@@ -16,7 +16,7 @@ function init(){
 		document.querySelector(".section__slider-slider_wrapper").appendChild(img);
 	}
 
-	for (let i=0; i< line.length; i++){
+	/*for (let i=0; i< line.length; i++){
 		line[i].addEventListener("mouseenter", (event) => {
 
 			switch(i){
@@ -37,7 +37,7 @@ function init(){
 					break;
 			}
 		});
-	}
+	}*/
 }
 
 init();
@@ -47,7 +47,7 @@ init();
 
 
 let offset = 6;
-let dellay = 2100;
+let delay = 2100;
 
 function draw(){
 	let iter = function(step){
@@ -88,7 +88,7 @@ function draw(){
 				}, 1950);
 			}
 
-    	}, dellay * step);
+    	}, delay * step);
 	}
   
   	for(let i = 0; i < img_list.length; i++){
@@ -96,7 +96,7 @@ function draw(){
   	}
 }
 
-draw();
+//draw();
 //[Violation] 'setTimeout' handler took 88ms!!!
 //[Violation] 'setTimeout' handler took 74ms
 
@@ -143,8 +143,8 @@ function crate_iframe(event){
 
 	
 	window.addEventListener('message', function(event) {
-  		let messsage = event.data;
-  		if (messsage === 1){
+  		let message = event.data;
+  		if (message === 1){
   			iframe.parentNode.removeChild(iframe);
   		}
 	});	
