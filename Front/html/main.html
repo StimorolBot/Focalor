@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/main.css">
+
+    <title>Focalor</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="wrapper">
+            <div class="header__title"><h2>Focalor</h2></div>
+
+            <nav class="header-menu header__menu-active">
+                <span> Анонсы </span>
+                <span> Мероприятия </span>
+                <span> Промокоды </span>
+                <span> Помощь </span>
+                <div class="active"></div>
+            </nav>
+
+            <nav class="header__submenu">
+                <label class="header__switch">
+                    <input type="checkbox" id="switch">
+                    <label for="switch" class="header__switch-field"></label>
+                </label>
+
+                <span><i class="fa-brands fa-telegram fa-xl"></i></span>
+                <span onclick="crate_iframe();"> <i class="fa-solid fa-user fa-xl"></i></span>
+                <span><i class="fa-solid fa-magnifying-glass fa-xl"></i></span>
+            </nav>
+        </div>
+    </header>
+
+{% block body %}
+
+    <section class="section__slider">
+        <div class="wrapper section__slider-slider_wrapper">
+             {% for i in range(18) %}
+                <img src="../img/slider/{{i}}.jpg" class="slider_img">
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="wrapper">
+        <article class="menu">
+            <div class="wrapper-menu">
+                <p>Основное</p>
+                <div class="menu__content">
+                      <img src="../img/art/flower.png">
+                      <div class="menu__description">
+                          <div class="menu__title">Артефакты</div>
+                          <div class="menu__text">
+                              <ul>
+                                    <li>2 предмета увеличивает урон обычной и заряженной атаки на 15%</li>
+                                    <li>4 предмета увеличивает шанс крит. Попадания на 12% на 5 сек.,
+                                        когда текущее HP увеличивается или снижается.
+                                    </li>
+                                </ul>
+                          </div>
+                          <div class="btn"> >>> Далее</div>
+                      </div>
+                </div>
+
+                <div class="menu__content">
+                <img src="../img/art/sword.webp">
+                <div class="menu__description">
+                    <div class="menu__title">Оружие</div>
+                    <div class="menu__text">
+                        <ul>
+                            <li>Когда текущее HP уменьшается или увеличивается, наносимый урон элементального навыка повышается на 8-16% на 6 сек.</li>
+                        </ul>
+                    </div>
+                     <div class="btn"> >>> Далее</div>
+                </div>
+            </div>
+
+                <div class="menu__content">
+                <img src="../img/art/book.png">
+                    <div class="menu__description">
+                        <div class="menu__title">Таланты</div>
+                            <div class="menu__text">
+                            <ul>
+                                <li>Книги о «Справедливости»</li>
+                                <li>Подземелье открыто во: вторник, пятницу, воскресенье</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu__btn-read">
+                    <div>Читать все</div>
+                </div>
+
+            </div>
+        </article>
+
+        <article class="menu">
+            <div class="wrapper-menu">
+                <p>Созвездия</p>
+                <ul class="constellations">
+                    <li class="constellations-title">1. У любви, как у пташки, крылья, её нельзя никак поймать.</li>
+                    <li class="constellations-description">
+                        При использовании Да возрадуются люди (взрыв стихии) Фурина сразу получает 150 ед. фанфар.
+                        Также лимит фанфар увеличивается на 100 ед.
+                    </li>
+
+                    <li class="constellations-title">2. Сердце красавиц склонно к измене</li>
+                    <li class="constellations-description">
+                        Пока действует взрыв стихии, прирост фанфар от увеличения или уменьшения HP персонажей поблизости увеличивается на 250%.
+                    </li>
+
+                    <li class="constellations-title">3. Но секрет мой скрыт во мне, никто не узнает моё имя!</li>
+                    <li class="constellations-description">Уровень Да возрадуются люди (взрыв стихии) +3. Макс. уровень: 15.</li>
+
+                </ul>
+
+                <div class="menu__btn-read">
+                    <div>Читать все</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="menu">
+            <div class="wrapper-menu">
+                <p>Описание персонажа</p>
+                <div class="menu-name_character">Фокалор</div>
+                <div class="menu-rank_character">Богиня справедливости</div>
+                <img src="../img/characters/photo.png" class="menu-character-img">
+
+                <table>
+                        <tr>
+                            <td class="shift">Элемент</td>
+                            <td><img src="../img/characters/23_1-12100x1100 копия.png" class="menu-hydro">Гидро</td>
+                        </tr>
+
+                        <tr>
+                            <td class="shift">Регион</td>
+                            <td>Фонтейн</td>
+                        </tr>
+                        <tr>
+                            <td class="shift">Группа</td>
+                            <td>Семеро Архонтов</td>
+                        </tr>
+                </table>
+
+                <div class="menu__btn-read">
+                    <div>Читать все</div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="focalors">
+
+    </section>
+
+    <footer class="footer">
+        <section class="footer__contact">
+            <div class="wrapper">
+                <i class="fa-brands fa-facebook-f fa-xl"></i>
+                <i class="fa-brands fa-youtube fa-xl"></i>
+                <i class="fa-brands fa-instagram fa-xl"></i>
+                <i class="fa-brands fa-discord fa-xl"></i>
+                <i class="fa-brands fa-reddit fa-xl"></i>
+                <i class="fa-brands fa-vk fa-xl"></i>
+                <i class="fa-brands fa-bilibili fa-xl"></i>
+            </div>
+        </section>
+
+        <section class="footer__info">
+            <div class="wrapper">
+                <div class="footer__author">
+                     <p>Stimorol</p>
+                </div>
+            </div>
+        </section>
+    </footer>
+        <div class="iframe_container">
+            <!--<iframe id="login_frame" src="/login" width="100%" height="100%" frameborder="0" allowfullscreen sandbox="allow-scripts"> </iframe>-->
+        </div>
+{% endblock %}
+</body>
+
+<script src="https://kit.fontawesome.com/a0da6b1739.js" crossorigin="anonymous"></script>
+<!--<script src="../js/main.js"></script>-->
+</html>
