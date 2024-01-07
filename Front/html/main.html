@@ -57,106 +57,151 @@
         </div>
     </section>
 
-    <section class="wrapper">
+    <section class="wrapper wrapper-main_menu">
         <article class="menu">
             <div class="wrapper-menu">
-                <p>Основное</p>
-                <div class="menu__content">
-                      <img src="../img/art/flower.png">
-                      <div class="menu__description">
-                          <div class="menu__title">Артефакты</div>
-                          <div class="menu__text">
-                              <ul>
-                                    <li>2 предмета увеличивает урон обычной и заряженной атаки на 15%</li>
-                                    <li>4 предмета увеличивает шанс крит. Попадания на 12% на 5 сек.,
-                                        когда текущее HP увеличивается или снижается.
-                                    </li>
-                                </ul>
-                          </div>
-                          <div class="btn"> >>> Далее</div>
-                      </div>
-                </div>
-
-                <div class="menu__content">
-                <img src="../img/art/sword.webp">
-                <div class="menu__description">
-                    <div class="menu__title">Оружие</div>
-                    <div class="menu__text">
-                        <ul>
-                            <li>Когда текущее HP уменьшается или увеличивается, наносимый урон элементального навыка повышается на 8-16% на 6 сек.</li>
-                        </ul>
-                    </div>
-                     <div class="btn"> >>> Далее</div>
-                </div>
-            </div>
-
-                <div class="menu__content">
-                <img src="../img/art/book.png">
-                    <div class="menu__description">
-                        <div class="menu__title">Таланты</div>
-                            <div class="menu__text">
-                            <ul>
-                                <li>Книги о «Справедливости»</li>
-                                <li>Подземелье открыто во: вторник, пятницу, воскресенье</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu__btn-read">
-                    <div>Читать все</div>
-                </div>
-
-            </div>
-        </article>
-
-        <article class="menu">
-            <div class="wrapper-menu">
-                <p>Созвездия</p>
-                <ul class="constellations">
-                    <li class="constellations-title">1. У любви, как у пташки, крылья, её нельзя никак поймать.</li>
-                    <li class="constellations-description">
-                        При использовании Да возрадуются люди (взрыв стихии) Фурина сразу получает 150 ед. фанфар.
-                        Также лимит фанфар увеличивается на 100 ед.
-                    </li>
-
-                    <li class="constellations-title">2. Сердце красавиц склонно к измене</li>
-                    <li class="constellations-description">
-                        Пока действует взрыв стихии, прирост фанфар от увеличения или уменьшения HP персонажей поблизости увеличивается на 250%.
-                    </li>
-
-                    <li class="constellations-title">3. Но секрет мой скрыт во мне, никто не узнает моё имя!</li>
-                    <li class="constellations-description">Уровень Да возрадуются люди (взрыв стихии) +3. Макс. уровень: 15.</li>
-
-                </ul>
-
-                <div class="menu__btn-read">
-                    <div>Читать все</div>
-                </div>
-            </div>
-        </article>
-
-        <article class="menu">
-            <div class="wrapper-menu">
-                <p>Описание персонажа</p>
-                <div class="menu-name_character">Фокалор</div>
-                <div class="menu-rank_character">Богиня справедливости</div>
-                <img src="../img/characters/photo.png" class="menu-character-img">
-
+                <p>Основные навыки</p>
                 <table>
-                        <tr>
-                            <td class="shift">Элемент</td>
-                            <td><img src="../img/characters/23_1-12100x1100 копия.png" class="menu-hydro">Гидро</td>
-                        </tr>
+                    <tr>
+                        <td class="shift">Название навыка</td>
+                            <td>Назначение</td>
+                            <td>Описание навыка</td>
+                    </tr>
 
-                        <tr>
-                            <td class="shift">Регион</td>
-                            <td>Фонтейн</td>
-                        </tr>
-                        <tr>
-                            <td class="shift">Группа</td>
-                            <td>Семеро Архонтов</td>
-                        </tr>
+                    <tr>
+                        <td>Приглашение на одиночный танец</td>
+                        <td>Заряженная атака</td>
+                        <td>
+                            Расходует часть выносливости и переключает стойку, начиная одиночный танец.
+                            Наносит противникам физический урон и меняет тип Архэ Фурины.
+                            Если во время заряженной атаки на поле боя присутствуют помощники Архонта — также меняет их тип.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Салон одиноких сердец</td>
+                        <td>Элементальный навык</td>
+                        <td>
+                            Фурина вызывает на поле боя помощников из «Салона одиноких сердец».
+                            При этом, тип призванных существ зависит от архэ Архонта.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Да возрадуются люди</td>
+                        <td>Взрыв стихии</td>
+                        <td>
+                            Фурина создает на поле боя сцену из пены и атакует противников Гидро уроном по площади в зависимости от своего максимального HP.
+                            Все члены отряда получают статус Всемирного веселья.
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="menu__btn-read">
+                    <div>Читать все</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="menu">
+            <div class="wrapper-menu">
+                <p>Пассивные таланты</p>
+                <table>
+                    <tr>
+                        <td>Название навыка</td>
+                            <td>Активация</td>
+                            <td>Описание навыка</td>
+                    </tr>
+
+                    <tr>
+                        <td>Море – моя сцена</td>
+                        <td>Сразу после получения</td>
+                        <td>Откат способностей инородов Фонтмера уменьшается на 30%.</td>
+                    </tr>
+
+                    <tr>
+                        <td>Бесконечный вальс</td>
+                        <td>2 возвышение</td>
+                        <td>
+                            Если активный персонаж получает избыточное лечение, а его источником не является
+                            Певец потоков, Фурина в течение 4 секунд дважды восстанавливает HP союзникам в размере 2% от своего собственного HP.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Неуслышанное признание</td>
+                        <td>4 возвышение</td>
+                        <td>
+                            Каждая 1000 единиц HP Фурины усиливает ее помощников:
+                            <ul>
+                                <li>Урон участников «Салона одиноких сердец» увеличивается на 0.7%, максимальный бонус — 28%.</li>
+                                <li>Интервал лечения Певца потоков уменьшается на 0.4%, максимальный бонус — 16%.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                <div class="menu__btn-read">
+                    <div>Читать все</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="menu">
+            <div class="wrapper-menu">
+                <p>Ресурсы для прокачивания</p>
+                    <table>
+                    <tr>
+                        <td>Фаза/Уровень</td>
+                        <td>Мора</td>
+                        <td>Материал 1</td>
+                        <td>Материал 2 </td>
+                        <td>Местная диковинка</td>
+                        <td>Доп. материал </td>
+                    </tr>
+
+                    <tr>
+                        <td>1/40</td>
+                        <td>20000</td>
+                        <td>х1</td>
+                        <td>—</td>
+                        <td>х3 Лилия озерного света</td>
+                        <td>х3 Нектар попрыгуньи</td>
+                    </tr>
+
+                    <tr>
+                        <td>2/50</td>
+                        <td>40000</td>
+                        <td>х3 фрагмент лазурита Варунада</td>
+                        <td>х2 Вода, не достигшая перехода</td>
+                        <td>х10 Лилия озерного света</td>
+                        <td>х15 Нектар попрыгуньи</td>
+                    </tr>
+
+                    <tr>
+                        <td>3/60</td>
+                        <td>60000</td>
+                        <td>х6 фрагмент лазурита Варунада</td>
+                        <td>х4 Вода, не достигшая перехода</td>
+                        <td>х20 Лилия озерного света</td>
+                        <td>х12 Мерцающий нектар</td>
+                    </tr>
+
+                    <tr>
+                        <td>4/70</td>
+                        <td>80000 </td>
+                        <td>х3 кусок лазурита Варунада</td>
+                        <td>х8 Вода, не достигшая перехода</td>
+                        <td>х30 Лилия озерного света</td>
+                        <td>х18 Мерцающий нектар</td>
+                    </tr>
+                    <tr>
+                        <td>5/80</td>
+                        <td>100000 </td>
+                        <td>х6 кусок лазурита Варунад</td>
+                        <td>х12 Вода, не достигшая перехода</td>
+                        <td>х45 Лилия озерного света</td>
+                        <td>х12 Элементальный нектар</td>
+                    </tr>
                 </table>
 
                 <div class="menu__btn-read">
@@ -167,6 +212,10 @@
     </section>
 
     <section class="focalors">
+        <div class="wrapper">
+            <img src="../img/focalor/bg.png">
+            <img src="../img/focalor/focalor.png">
+        </div>
 
     </section>
 
@@ -192,7 +241,6 @@
         </section>
     </footer>
         <div class="iframe_container">
-            <!--<iframe id="login_frame" src="/login" width="100%" height="100%" frameborder="0" allowfullscreen sandbox="allow-scripts"> </iframe>-->
         </div>
 {% endblock %}
 </body>
