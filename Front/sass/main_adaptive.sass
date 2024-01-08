@@ -1,18 +1,26 @@
 @mixin breakpoint($point)
     @if $point == xs
-        @media (max-width: 100)
+        @media (max-width: 490px)
              @content
 
     @else if $point == sm
-        @media (max-width: 576px)
+        @media (max-width: 565px)
              @content
 
     @else if $point == md
-        @media (max-width: 768px)
+        @media (max-width: 625px)
+             @content
+
+    @else if $point == md_header
+        @media (max-width: 700px)
+             @content
+
+    @else if $point == md_indicator
+        @media (max-width: 782px)
              @content
 
     @else if $point == lg
-        @media (max-width: 992px)
+        @media (max-width: 1110px)
             @content
 
     @else if $point == xl
