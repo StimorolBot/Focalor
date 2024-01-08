@@ -20,23 +20,20 @@ init_slider();
 
 /*-----------------------------------------------------------------------------------------------------*/
 
-links = document.querySelectorAll("nav.header-menu > span");
+let links = document.querySelectorAll("nav.header-menu > span");
+let marker = document.querySelector(".marker");
 
-function active_link(){
-	links.forEach((link)=>
-		link.classList.remove("header__menu-active"));
-	this.classList.add("header__menu-active")
+function indicator(e){
+	marker.style.left = e.offsetLeft + "px";
+	marker.style.width = e.offsetWidth + "px";
 }
 
 links.forEach((link)=>
-	link.addEventListener("mouseenter", active_link));
+	link.addEventListener("mouseenter", (e) => {
+		indicator(e.target);
+	}
+));
 
-
-/*document.querySelector('button').onclick = function() {
-  var c = this.getBoundingClientRect()
-  alert('top:' + c.top + ' left: ' + c.left +'');
-}*
-/
 
 /*-----------------------------------------------------------------------------------------------------*/
 
