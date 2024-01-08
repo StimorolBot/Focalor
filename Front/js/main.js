@@ -37,6 +37,30 @@ links.forEach((link)=>
 
 /*-----------------------------------------------------------------------------------------------------*/
 
+function switch_theme(){
+	let sw = document.querySelector("#switch");
+	let body = document.querySelector("body");
+	let menu_list = document.querySelectorAll(".menu");
+
+	
+	if (sw.checked == false){
+		body.style.cssText = "background-color: #0E294B;";
+		menu_list.forEach(function(menu){
+			menu.style.cssText = "background-color: #20426D;";
+		});
+	}
+
+	else{
+		body.style.cssText = "background-color: #a4bbdb;";
+		menu_list.forEach(function(menu){
+			menu.style.cssText = "background-color: #6495ED;";
+		});
+	}
+}
+
+/*-----------------------------------------------------------------------------------------------------*/
+
+
 
 let offset = 6;
 let delay = 2100;
@@ -89,21 +113,7 @@ function draw(){
 }
 
 //draw();
-//[Violation] 'setTimeout' handler took 88ms!!!
-//[Violation] 'setTimeout' handler took 74ms
 
-/*-----------------------------------------------------------------------------------------------------*/
-
-/*function progress_bar(offset){
-	let progress = document.querySelectorAll(".point");
-
-
-	for (let i = 0; i < progress.length; i++){
-        progress[i].className = progress[i].className.replace(" active_point", "");        
-	}
-	
-    progress[offset].className += " active_point";
-}*/
 
 /*-----------------------------------------------------------------------------------------------------*/
 
