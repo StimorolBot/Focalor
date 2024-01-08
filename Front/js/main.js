@@ -1,8 +1,7 @@
 let img_list = document.querySelectorAll(".slider_img");
 let slider = [];
 
-function init(){
-	line = document.querySelectorAll("nav.header-menu > span");
+function init_slider(){
 
 	for (let i = 0; i < img_list.length; i++){
 	    slider[i] = img_list[i].src;
@@ -15,33 +14,29 @@ function init(){
 		img.classList.add("slider_img");
 		document.querySelector(".section__slider-slider_wrapper").appendChild(img);
 	}
-
-	/*for (let i=0; i< line.length; i++){
-		line[i].addEventListener("mouseenter", (event) => {
-
-			switch(i){
-				case 0:
-					document.querySelector(".header__menu-active").style = "left: 189px;";
-					break;
-
-				case 1:
-					document.querySelector(".header__menu-active").style = "left: 324px; width: 160px;";
-					break;
-
-				case 2:
-					document.querySelector(".header__menu-active").style = "left: 531px; width: 130px;";
-					break;
-						
-				case 3:
-					document.querySelector(".header__menu-active").style = "left: 708px; width: 95px;";
-					break;
-			}
-		});
-	}*/
 }
 
-init();
+init_slider();
 
+/*-----------------------------------------------------------------------------------------------------*/
+
+links = document.querySelectorAll("nav.header-menu > span");
+
+function active_link(){
+	links.forEach((link)=>
+		link.classList.remove("header__menu-active"));
+	this.classList.add("header__menu-active")
+}
+
+links.forEach((link)=>
+	link.addEventListener("mouseenter", active_link));
+
+
+/*document.querySelector('button').onclick = function() {
+  var c = this.getBoundingClientRect()
+  alert('top:' + c.top + ' left: ' + c.left +'');
+}*
+/
 
 /*-----------------------------------------------------------------------------------------------------*/
 
