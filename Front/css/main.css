@@ -9,6 +9,7 @@ body {
   background-color: #a4bbdb;
   font-family: "Comfortaa", sans-serif;
   color: #f5e6eb;
+  transition: 0.3s;
 }
 
 .header {
@@ -125,7 +126,7 @@ body {
   transition: 0.3s;
 }
 .header__submenu i:hover {
-  transform: scale(1.5);
+  transform: scale(1.3);
   color: #42AAFF;
 }
 
@@ -163,12 +164,11 @@ input[type=checkbox] {
   transition: 0.3s;
 }
 
-input:checked + .header__switch-field {
+input[type=checkbox]:checked ~ .header__switch-field {
   transition: 0.3s;
   background: #1560BD;
 }
-
-input:checked + .header__switch-field:after {
+input[type=checkbox]:checked ~ .header__switch-field:after {
   transform: translateX(21px);
 }
 
@@ -192,12 +192,14 @@ input:checked + .header__switch-field:after {
 }
 
 .menu {
+  position: relative;
   overflow: hidden;
   width: 520px;
   height: 580px;
   border-radius: 10px;
   background-color: #6495ED;
   margin: 1%;
+  transition: 0.3s;
 }
 @media (max-width: 1697px) {
   .menu {
@@ -219,8 +221,8 @@ input:checked + .header__switch-field:after {
 
 .wrapper-menu {
   position: relative;
-  margin: 10px;
-  height: 500px;
+  margin: 1%;
+  height: 97%;
   overflow: hidden;
 }
 
@@ -260,45 +262,15 @@ input:checked + .header__switch-field:after {
   line-height: 1.3;
 }
 
-.btn {
-  padding: 2px;
-  left: 120px;
-  text-align: center;
-  position: absolute;
-  cursor: pointer;
-  width: 85px;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: #4169E1;
-  user-select: none;
-  transition: 0.3s;
-  white-space: nowrap;
-  text-indent: -55px;
-  word-spacing: 20px;
-  overflow: hidden;
-}
-.btn:hover {
-  border-radius: 2px;
-  width: 110px;
-  transition: 0.3s;
-  transform: skew(15deg);
-  word-spacing: 35px;
-  text-indent: 45px;
-  background-color: #324AB2;
-}
-.btn:active {
-  background-color: #1E3080;
-}
-
 .menu__btn-read {
   position: absolute;
+  bottom: 1%;
   width: 100%;
 }
 .menu__btn-read div {
-  position: relative;
-  bottom: 18px;
-  right: 0;
-  padding: 10px;
+  margin: 0 auto;
+  width: 25%;
+  padding: 1%;
   text-align: center;
   cursor: pointer;
   user-select: none;
