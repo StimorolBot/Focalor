@@ -19,6 +19,7 @@ body {
 .wrapper {
   display: flex;
   margin: 0 1%;
+  overflow: hidden;
   border: 2px solid red;
   flex-wrap: wrap;
 }
@@ -331,8 +332,16 @@ table .shift {
 }
 
 .focalors {
-  height: 600px;
+  position: relative;
+  height: 260px;
   overflow: hidden;
+}
+.focalors .focalor_img {
+  position: absolute;
+  height: 260px;
+  width: 415px;
+  top: 0;
+  right: 0;
 }
 
 .footer {
