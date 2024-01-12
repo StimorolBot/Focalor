@@ -176,13 +176,15 @@ input[type=checkbox]:checked
 
 
 .section__slider-slider_wrapper
-	height: 300px
 	display: flex
-	align-items: center
+	justify-content: center
 	grid-gap: 5%
-	overflow: hidden
+	height: 300px
+	align-items: center
+	flex-wrap: nowrap
 
 	img
+		//position: absolute
 		width: 138.3px
 		height: 270px
 		border-radius: 5px
@@ -218,19 +220,6 @@ input[type=checkbox]:checked
 	height: 97%
 	overflow: hidden
 
-/*.menu__content
-	display: flex
-	justify-content: space-around
-	align-items: center
-	width: 100%
-	height: 140px
-	border: 2px solid goldenrod
-
-	img
-		width: 90px
-		height: 90px
-		background-color:#002F55
-		border-radius: 50%*/
 
 .menu__description
 	width: 245px
@@ -252,39 +241,10 @@ input[type=checkbox]:checked
 		text-indent: 15px
 		line-height: 1.3
 
-
-//.btn
-//	padding:2px
-//	left: 120px
-//	text-align: center
-//	position: absolute
-//	cursor: pointer
-//	width: 85px
-//	border: 1px solid black
-//	border-radius: 5px
-//	background-color:  #4169E1
-//	user-select: none
-//	transition: 0.3s
-//	white-space: nowrap
-//	text-indent: -55px
-//	word-spacing: 20px
-//	overflow: hidden
-
-//	&:hover
-//		border-radius: 2px
-//		width: 110px
-//		transition: 0.3s
-//		transform: skew(15deg)
-//		word-spacing: 35px
-//		text-indent:45px
-//		background-color: #324AB2
-
-//	&:active
-//		background-color: #1E3080
 	 
 .menu__btn-read
 	position: absolute
-	bottom: 1%
+	bottom: 2%
 	width: 100%
 
 	div
@@ -347,6 +307,7 @@ input[type=checkbox]:checked
 	margin-bottom: 5px
 
 table
+	border: 2px solid red 
 	display: flex
 	justify-content: center
 
