@@ -1,18 +1,15 @@
-let img_list = document.querySelectorAll(".slider_img");
 let slider = [];
 
 function init_slider(){
-
+	let img_list = document.querySelectorAll(".slider_img");
+	
 	for (let i = 0; i < img_list.length; i++){
-	    slider[i] = img_list[i].src;
+	    slider[i] = img_list[i];
 	    img_list[i].remove();
 	}
 
 	for (let i = 0; i < 8; i++){
-		let img = document.createElement("img");	
-		img.src = slider[i];
-		img.classList.add("slider_img");
-		document.querySelector(".section__slider-slider_wrapper").appendChild(img);
+		create_img(i);
 	}
 }
 
@@ -58,65 +55,8 @@ function switch_theme(){
 	}
 }
 
-/*-----------------------------------------------------------------------------------------------------*/
-
-
-
-let offset = 6;
-let delay = 2100;
-
-function draw(){
-	let iter = function(step){
-
-		setTimeout(function(){
-			let slider_visible = document.querySelectorAll(".slider_img");
-			let img = document.createElement("img");
-
-			img.src = slider[step];
-			img.classList.add("slider_img");
-
-
-			if (slider_visible.length <= 8){
-				setTimeout(function(){				
-					document.querySelector(".section__slider-slider_wrapper").appendChild(img);
-
-					if (step >= 17){
-						draw();
-					}
-
-				}, 1600);
-			}
-
-			slider_visible[0].style.cssText = "margin-left: -199px; transition: all ease 1.5s;";
-
-			setTimeout(function(){
-				if (offset <= -1){
-					offset = 6;
-					}
-
-					//progress_bar(offset);
-					offset--;
-			}, 900);
-
-			if (slider_visible.length >= 8){
-				setTimeout(function(){
-					slider_visible[0].remove();
-				}, 1950);
-			}
-
-    	}, delay * step);
-	}
-  
-  	for(let i = 0; i < img_list.length; i++){
-    	iter(i);
-  	}
-}
-
-//draw();
-
 
 /*-----------------------------------------------------------------------------------------------------*/
-
 
 
 function crate_iframe(event){
@@ -154,3 +94,36 @@ function crate_iframe(event){
 
 /*-----------------------------------------------------------------------------------------------------*/
 
+let offset = 9;
+let  swap = 0;
+
+
+function create_img(offset){
+	let img = document.createElement("img");
+	img.src = slider[offset].src;
+	img.classList.add("slider_img");
+	document.querySelector(".section__slider-slider_wrapper").appendChild(img);
+}
+
+
+
+setInterval(() => {
+	let carouselItems = document.querySelectorAll(".slider_img");
+
+	create_img(offset);
+
+	carouselItems[0].remove();
+
+
+	if (swap >= 8){
+		swap =0;
+	}
+  
+	if(offset < slider.length-1){
+    	offset++;
+    	swap++;
+  	}
+  	else{
+    	offset = 0;
+  	}
+},2000)
