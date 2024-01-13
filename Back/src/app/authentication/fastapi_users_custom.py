@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from src.app.authentication.login import get_login_user
 from src.app.authentication.logout import get_logout_user
+from src.app.authentication.register import get_register_user
 
 from fastapi_users import models, schemas
 from fastapi_users.authentication import AuthenticationBackend, Authenticator
@@ -43,24 +44,14 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
     def __init__(
             self,
             get_user_manager: UserManagerDependency[models.UP, models.ID],
-            auth_backends: Sequence[AuthenticationBackend],
+            auth_baиckends: Sequence[AuthenticationBackend],
     ):
         self.authenticator = Authenticator(auth_backends, get_user_manager)
         self.get_user_manager = get_user_manager
         self.current_user = self.authenticator.current_user
 
-    def get_register_router(
-            self, user_schema: Type[schemas.U], user_create_schema: Type[schemas.UC]
-    ) -> APIRouter:
-        """
-        Return a router with a register route.
-
-        :param user_schema: Pydantic schema of a public user.
-        :param user_create_schema: Pydantic schema for creating a user.
-        """
-        return get_register_router(
-            self.get_user_manager, user_schema, user_create_schema
-        )
+    def get_register_user(self, user_schema: Type[schemas.U], user_create_schema: Type[schemas.UC]) -> APIRouter:
+        return get_register_user(self.get_user_manager, user_schema, user_create_schema)
 
     def get_verify_router(self, user_schema: Type[schemas.U]) -> APIRouter:
         """
@@ -75,10 +66,10 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
         return get_reset_password_router(self.get_user_manager)
 
     def get_login_router(self, backend: AuthenticationBackend, requires_verification: bool = False) -> APIRouter:
-        return get_login_user(backend, self.get_user_manager, requires_verification,)
+        return get_login_user(backend, self.get_user_manager, requires_verification, )
 
     def get_logout_router(self, backend: AuthenticationBackend, requires_verification: bool = False) -> APIRouter:
-        return get_auth_router(backend, self.get_user_manager, self.authenticator, requires_verification, )
+        return get_logout_user(backend, self.authenticator, requires_verification, )
 
     """
         def get_auth_router(self, backend: AuthenticationBackend, requires_verification: bool = False) -> APIRouter:
