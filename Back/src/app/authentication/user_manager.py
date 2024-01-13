@@ -3,6 +3,7 @@ from typing import Optional
 
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, UUIDIDMixin, exceptions, schemas, models
+from fastapi.security import OAuth2PasswordRequestForm
 
 from src.config import DB_USER_TOKEN
 from src.app.authentication.models import User
@@ -38,11 +39,34 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         print(f"User {user.id} has registered.")
 
-    async def on_after_forgot_password(self, user: User, token: str, request: Optional[Request] = None):
-        print(f"User {user.id} has forgot their password. Reset token: {token}")
+    async def authenticate(self, credentials: OAuth2PasswordRequestForm) -> Optional[models.UP]:
+        try:
+            user = await self.get_by_email(credentials.username)
+        except exceptions.UserNotExists:
+            self.password_helper.hash(credentials.password)
+            return None
 
-    async def on_after_request_verify(self, user: User, token: str, request: Optional[Request] = None):
-        print(f"Verification requested for user {user.id}. Verification token: {token}")
+        verified, updated_password_hash = self.password_helper.verify_and_update(credentials.password, user.hashed_password)
+        if not verified:
+            return None
+
+        if updated_password_hash is not None:
+            await self.user_db.update(user, {"hashed_password": updated_password_hash})
+
+        return user
+
+    async def get_by_email(self, user_email: str) -> models.UP:
+
+        match len(user_email.split("@")):
+            case 1:
+                user = await self.user_db.get_by_username(user_email)
+            case 2:
+                user = await self.user_db.get_by_email(user_email)
+
+        if user is None:
+            raise exceptions.UserNotExists()
+
+        return user
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):
