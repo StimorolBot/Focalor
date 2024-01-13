@@ -44,7 +44,7 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
     def __init__(
             self,
             get_user_manager: UserManagerDependency[models.UP, models.ID],
-            auth_baиckends: Sequence[AuthenticationBackend],
+            auth_backends: Sequence[AuthenticationBackend],
     ):
         self.authenticator = Authenticator(auth_backends, get_user_manager)
         self.get_user_manager = get_user_manager
