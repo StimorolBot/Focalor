@@ -31,7 +31,7 @@ fastapi_users = FastAPIUsers[User, int](get_user_manager, [auth_backend], )
 
 app.include_router(fastapi_users.get_login_router(auth_backend), tags=["auth"], )
 app.include_router(fastapi_users.get_logout_router(auth_backend), tags=["auth"], )
-app.include_router(fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"], )
+app.include_router(fastapi_users.get_register_user(UserRead, UserCreate), tags=["auth"], )
 
 # подключать в самом конце, иначе выдает ошибку "Метод не разрешен"
 app.mount("/", StaticFiles(directory="../front"), name="css", )  # подключение css, img и js
