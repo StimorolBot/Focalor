@@ -1,0 +1,10 @@
+.idea
+include
+Lib
+__pycache__
+Scripts
+pyvenv.cfg
+.env
+pyvenv.cfg
+img
+main.css.map
