@@ -9,7 +9,6 @@ class ServerResponse(BaseModel):
     user_role: int
     email: EmailStr
     time: datetime
-    is_verified: bool
 
     class Config:
         orm_mode = True
