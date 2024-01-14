@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from starlette.exceptions import HTTPException
 
-from pages.router import router_page, router_authentication, router_admin, router_error
+from pages.router import router_page, router_authentication, router_error
+from pages.router_admin import router_admin
 
 from src.app.authentication.user_manager import get_user_manager
 from src.app.authentication.cookie import auth_backend
@@ -12,11 +13,16 @@ from src.app.authentication.schemas import UserRead, UserCreate
 from src.app.authentication.models import User
 from src.config import templates
 
+from fastapi_pagination import add_pagination
+
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 from src.app.authentication.user_operation import router as router_user_operation
 from src.app.admin_panel.admin_operation import router as router_admin_operation
 
 app = FastAPI(title="main_app")
+
+# добавление пагинации страниц
+add_pagination(app)
 
 # подключение роутеров
 app.include_router(router_page)
