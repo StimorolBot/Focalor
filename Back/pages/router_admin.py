@@ -1,9 +1,7 @@
-from fastapi import APIRouter, Request
 from fastapi import Depends
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Request, Query
 
-from fastapi_pagination.links import Page
-from fastapi_pagination import paginate
+from fastapi_pagination import Page, paginate
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,27 +10,26 @@ from src.config import templates
 from src.database import get_async_session
 from src.app.authentication.models import User
 from src.app.admin_panel.schemas import ServerResponse
-from src.app.admin_panel.admin_operation import select_user, check_current_user
+from src.app.admin_panel.admin_operation import check_admin
+from src.app.admin_panel.admin_operation import current_user
 
 router_admin = APIRouter(tags=["admin"])
+Page = Page.with_custom_options(size=Query(default=5, ge=3, le=6))
 
 
-@router_admin.get("/admin_panel")
-async def get_admin_panel(request: Request, users_info=Depends(select_user), user=Depends(check_current_user)):
-    match user:
-        case "admin":
-            if len(users_info) != 0:
-                return templates.TemplateResponse("admin/admin.html", {"request": request, "users": users_info})
-            else:
-                return RedirectResponse("/error")
-        case _:
-            return RedirectResponse("/error")
+@router_admin.get("/admin")
+async def get_admin(request: Request, user=Depends(current_user)):
+    return await check_admin(template=templates.TemplateResponse("admin/admin.html", {"request": request}), user=user)
 
 
-@router_admin.get("/users__")
-async def pagination(session: AsyncSession = Depends(get_async_session)) -> Page[ServerResponse]:
+@router_admin.get("/admin/table")
+async def pagination(request: Request, session: AsyncSession = Depends(get_async_session), user=Depends(current_user)) -> Page[ServerResponse]:
     query = select(User)
     query_execute = await session.execute(query)
     users = query_execute.all()
     user_list = [i[0].__dict__ for i in users]
-    return paginate(user_list)
+    paginate_list, total, page, size, pages = paginate(user_list)
+    pages = [i for i in range(1, pages[1] + 1)]
+    return await check_admin(template=templates.TemplateResponse("admin/admin_table.html",
+                                                                 {"request": request, "users": paginate_list[1],
+                                                                  "btns": pages}), user=user)
