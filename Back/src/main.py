@@ -17,7 +17,7 @@ from fastapi_pagination import add_pagination
 
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 from src.app.authentication.user_operation import router as router_user_operation
-from src.app.admin_panel.admin_operation import router as router_admin_operation
+#from src.app.admin_panel.admin_operation import router as
 
 app = FastAPI(title="main_app")
 
@@ -31,7 +31,6 @@ app.include_router(router_error)
 app.include_router(router_authentication)
 app.include_router(router_user_operation)
 
-app.include_router(router_admin_operation)
 
 fastapi_users = FastAPIUsers[User, int](get_user_manager, [auth_backend], )
 
