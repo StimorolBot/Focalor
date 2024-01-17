@@ -1,13 +1,14 @@
 import uuid
 from typing import Optional
 
-from fastapi import Depends, Request
+from fastapi import Depends, Request, Response
 from fastapi_users import BaseUserManager, UUIDIDMixin, exceptions, schemas, models
 from fastapi.security import OAuth2PasswordRequestForm
 
 from src.config import DB_USER_TOKEN
 from src.app.authentication.models import User
 from src.database import get_user_db
+from src.app.authentication.background_tasks.send_email import send_email_after_register
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
@@ -36,8 +37,13 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
 
         return created_user
 
-    async def on_after_register(self, user: User, request: Optional[Request] = None):
-        print(f"User {user.id} has registered.")
+    async def on_after_register(self, user: User, request: Optional[Request] = None) -> dict:
+        send_email_after_register.delay(username=user.username)
+        return {
+            "status": 201,
+            "data": "Письмо отправлено",
+            "details": None
+        }
 
     async def authenticate(self, credentials: OAuth2PasswordRequestForm) -> Optional[models.UP]:
         try:
@@ -67,6 +73,9 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
             raise exceptions.UserNotExists()
 
         return user
+
+    async def on_after_login(self, user: models.UP, request: Optional[Request] = None, response: Optional[Response] = None, ):
+        print(f"{user.email} вошел в систему")
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):
