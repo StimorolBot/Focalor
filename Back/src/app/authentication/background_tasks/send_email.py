@@ -1,20 +1,21 @@
+import string
 import smtplib
+import secrets
+
+from fastapi import Request
 
 from email.message import EmailMessage
+from src.app.authentication.background_tasks.verified_token import verified
 from src.config import celery, SMTP_HOST, SMTP_PORT, SMTP_EMAIL, SMTP_TOKEN
 
 
-def render_email_template(username: str) -> EmailMessage:
-    email = EmailMessage()
+def render_email_on_after_register(username: str, email: EmailMessage) -> EmailMessage:
     email["Subject"] = "Добро пожаловать !"
-    email["From"] = SMTP_EMAIL
-    email["To"] = SMTP_EMAIL
-
     email.set_content(
-        "<div style = 'display:flex;flex-direction: column;'>"
-        f"<h1 style = 'text-align:center'> Добро пожаловать, {username} ! </h1 >"
+        "<div style = 'display:flex; flex-direction: column;'>"
+        f"<h1> Добро пожаловать, {username} ! </h1 >"
         "<img src = 'https://static.wikia.nocookie.net/genshin-impact/images/1/15/%D0%9A%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D1%8B_%D0%9F%D0%B0%D0%B9%D0%BC%D0%BE%D0%BD"
-        "_01_03.png/revision/latest/scale-to-width-down/250?cb=20211031090041&path-prefix=ru' style='width:200px; height: 200px;margin: 0 auto;'>"
+        "_01_03.png/revision/latest/scale-to-width-down/250?cb=20211031090041&path-prefix=ru' style='width:200px; height: 200px;'>"
         "</div>",
         subtype="html"
     )
@@ -22,50 +23,40 @@ def render_email_template(username: str) -> EmailMessage:
     return email
 
 
+def render_email_token(request: Request) -> str:
+    letters_and_digits = string.ascii_letters + string.digits
+    token = ''.join(secrets.choice(letters_and_digits) for _ in range(64))
+    return f"{request.url.hostname}:{request.url.port}/is_verified/{token}"
+
+
+def render_email_confirm(token_confirm, email: EmailMessage) -> EmailMessage:
+    email["Subject"] = "Пожалуйста, подтвердите почту !"
+    email.set_content(
+        "<div'>"
+        "<h2'>Для подтверждения почты, пожалуйста, перейдите по следующей ссылке:</h2 >"
+        f"{token_confirm}"
+        "</div>",
+        subtype="html"
+    )
+    return email
+
+
 @celery.task
-def send_email_after_register(username: str):
-    email = render_email_template(username)
+def send_email(action: str, *args, **kwargs):
+    email = EmailMessage()
+    email["From"] = SMTP_EMAIL
+    email["To"] = SMTP_EMAIL
+
+    match action:
+        case "on_after_register":
+            render_email_on_after_register(email=email, username=kwargs["username"])
+        case "email_confirm":
+            render_token = render_email_token(kwargs["request"])
+            verified.token_render = render_token.split("/")[2]
+            render_email_confirm(email=email, token_confirm=render_token)
+        case _:
+            raise "[!] Неизвестное действие! Доступны: on_after_register,  email_confirm "
+
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
         server.login(user=SMTP_EMAIL, password=SMTP_TOKEN)
         server.send_message(email)
-
-
-"""
-import string
-import secrets
-from fastapi_cache.decorator import cache
-from fastapi import APIRouter, Depends
-
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
-from src.database import get_async_session
-
-from src.app.authentication.models import User
-# router = APIRouter(tags=['user', ])
-
-@router.patch("/reset_password")
-async def reset_user_password():
-    return "Work!"
-
-
-async def generate_code_confirm() -> str:
-    letters_and_digits = string.ascii_letters + string.digits
-    return ''.join(secrets.choice(letters_and_digits) for _ in range(8))
-
-
-async def get_user_email(user=Depends(current_user), session: AsyncSession = Depends(get_async_session)) -> str | AttributeError:
-    try:
-        query = select(User).where(User.email == user.email)
-        execute_query = await session.execute(query)
-        return execute_query.mappings().all()[0]["User"]
-    except AttributeError as e:
-        return e
-
-
-async def generate_template_email_code_confirm(user_info=Depends(get_user_email)):
-    code = await generate_code_confirm()
-    return code
-
-
-
-"""
