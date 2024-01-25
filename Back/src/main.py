@@ -1,4 +1,6 @@
+import aioredis
 from fastapi import FastAPI, Request
+
 from fastapi_cache import FastAPICache
 from fastapi.staticfiles import StaticFiles
 from fastapi_pagination import add_pagination
@@ -7,18 +9,15 @@ from fastapi_cache.backends.redis import RedisBackend
 
 from starlette.exceptions import HTTPException
 
-from pages.router_admin import router_admin
-from pages.router import router_page, router_authentication, router_error
-
 from src.config import templates
+from src.router.router_admin import router_admin
+from src.router.router_user import router_page, router_authentication
 
 from src.app.authentication.user_manager import get_user_manager
 from src.app.authentication.cookie import auth_backend
 from src.app.authentication.schemas import UserRead, UserCreate
 from src.app.authentication.models import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
-
-from redis import asyncio as aioredis
 
 app = FastAPI(title="main_app")
 
@@ -28,9 +27,7 @@ add_pagination(app)
 # подключение роутеров
 app.include_router(router_page)
 app.include_router(router_admin)
-app.include_router(router_error)
 app.include_router(router_authentication)
-# app.include_router(router_user_operation)
 
 fastapi_users = FastAPIUsers[User, int](get_user_manager, [auth_backend], )
 
@@ -65,14 +62,7 @@ app.add_middleware(
 
 @app.exception_handler(HTTPException)
 async def exception_handler(request: Request, exc: HTTPException):
-    if exc.status_code == 404:
-        print(f"\n*************{exc.status_code}*************\n")
-        return templates.TemplateResponse("error_page.html", {"request": request})
-    elif exc.status_code == 500:
-        print(f"\n*************{exc.status_code}*************\n")
-        return templates.TemplateResponse("error_page.html", {"request": request})
-    else:
-        print(f"\n*************Неизвестный_статс_код{exc.status_code}*************\n")
+    return templates.TemplateResponse("error_page.html", {"request": request, "status_code": exc.status_code})
 
 
 @app.on_event("startup")
