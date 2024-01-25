@@ -1,11 +1,11 @@
 from uuid import UUID
-from pydantic import BaseModel, EmailStr
 from datetime import datetime
+from pydantic import BaseModel, EmailStr
 
 
-class ServerResponse(BaseModel):
+class PaginationResponse(BaseModel):
     id: UUID
-    username: str | None
+    username: str
     user_role: int
     email: EmailStr
     time: datetime
