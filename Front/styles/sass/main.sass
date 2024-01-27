@@ -1,0 +1,15 @@
+@import "size.sass"
+@import "blocks/header.sass"
+@import "blocks/slider.sass"
+@import "blocks/cards.sass"
+@import "blocks/focalor.sass"
+@import "blocks/footer.sass"
+
+.wrapper
+	display: flex
+	margin: 0 1%
+	overflow: hidden
+	flex-wrap: wrap
+
+	@include breakpoint(min-width)
+		flex-wrap: nowrap
