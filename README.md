@@ -37,31 +37,45 @@ Back/
 ### Frontend
 
  ```
-Front/                                      
-     ├── sass/                              #
-         └── css/                           #
-              ├── admin/                    #
-                   └── admin.css            #
-              └── authentication/           #
-                   ├── login.css            #
-                   └── register.css         #
+Front/
      ├── html/                              #
           ├── admin/                        #
                ├── admin_panel.html         #
-               └── user_info_table.html     #
+               └── user_table.html          #
           ├── authentication/               #
+               ├── base_auth.html           #
                ├── login.html               # страница с входом
                ├── register.html            # страница с регистраией
                └── verified.html            #
-          ├── error.html                    # страница с ошибкой
-          └── base.html                     # базовый шаблон
+          ├── base.html                     # базовый шаблон
+          ├── error.html                    # страница с ошибкой 
+          └── main.html                     # основная страница
      ├── img/                               #
           ├── focalor/                      #
           ├── logo/                         #
           └── slider/                       #
-     └── js/                                #
+     ├── js/                                #
           ├── admin.js                      #
+          ├── cards.js                      #
           ├── login.js                      #
-          ├── main.js                       #
-          └── register.js                   #
+          ├── register.js                   #
+          └── slider.js                     #
+     └── styles                             #
+        ├── css/                            #
+              ├── admin/                    #
+                   └── admin.css            #
+              ├── authentication/           #
+                   ├── login.css            #
+                   └── register.css         #
+              ├── main.css                  #
+              └── reset_style.css           # сброс стилей
+        └── sass/
+            ├── blocks
+                ├── cards.sass              #
+                ├── focalor.sass            #
+                ├── footer.sass             #
+                ├── header.sass             #
+                └── slider.sass             # стили для слайдера  
+            ├── main.sass                   #
+            └── size.sass                   # брейкпоинты
 ```
