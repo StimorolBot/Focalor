@@ -1,24 +1,6 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'authentication/base_auth.html' %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/authentication/login.css">
-
-    {% block head %}
-    <title>Login</title>
-    {% endblock %}
-
-</head>
+{% block body %}
 <body>
     <section class="login">
         <div class="wrapper">
@@ -28,7 +10,7 @@
 
             <header>
                 <div> Stimorol </div>
-                <div>{% block title %} Войти в учётную запись  {% endblock %}</div>
+                <div>{{ form_name }}</div>
             </header>
 
             {% block form %}
@@ -68,11 +50,6 @@
             </footer>
         </div>
     </section>
-
-
 </body>
-<script src="https://kit.fontawesome.com/a0da6b1739.js" crossorigin="anonymous"></script>
-{% block script %}
-    <script src="../../js/login.js"></script>
 {% endblock %}
-</html>
+
