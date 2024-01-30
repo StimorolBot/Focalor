@@ -3,7 +3,7 @@
 .header
 	background-color: #212121
 
-.header-title
+.header-title__container
 	display: flex
 	width: 15%
 	min-width: 29px
@@ -11,25 +11,25 @@
 	justify-content: center
 	overflow: hidden
 
-	h2
-		font-family: 'Tilt Neon', sans-serif
-		padding: 2% 0
-		cursor: pointer
-		user-select: none
-		transition: transform .2s
+.header-title
+	font-family: 'Tilt Neon', sans-serif
+	padding: 2% 0
+	cursor: pointer
+	user-select: none
+	transition: transform .2s
 
-		&:before
-			content: "Focalor" 
+	&:before
+		content: "Focalor" 
 
-		&:hover
-			transform: scale(1.3)
+	&:hover
+		transform: scale(1.3)
 
 	@include breakpoint(md)
-		h2
+		.header-title
 			font-size: 1.2em
 
 	@include breakpoint(xs)
-		h2
+		.header-title
 			&:before
 				content: "Fc"
 				font-size: 1.4em
@@ -48,23 +48,23 @@
 	position: relative
 	min-width: 152px
 
-	span
-		font-size: 1.2em
-		user-select: none
-		font-weight: 600
-		padding: 0 2%
-
-		&:hover
-			cursor: pointer
-
 	@include breakpoint(md_indicator)
 		.marker
 			display: none
-		span
+		.header-menu_items
 			padding: 2%
 			font-size: 1.1em
 
-.marker
+.header-menu_items
+	font-size: 1.2em
+	user-select: none
+	font-weight: 600
+	padding: 0 2%
+
+	&:hover
+		cursor: pointer
+
+.header-menu--marker
 	position: absolute
 	top: 0
 	left: -50%
