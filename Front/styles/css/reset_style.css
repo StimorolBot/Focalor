@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+body {
+  background-color: #a4bbdb;
+  font-family: "Comfortaa", sans-serif;
+  color: #f5e6eb;
+  transition: 0.3s;
+}
+
+body:has(.error){
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error{
+  text-align: center;
+}
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+  border: none;
+}
