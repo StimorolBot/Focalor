@@ -7,14 +7,14 @@
 {% block header %}
 <header class="header">
     <div class="wrapper">
-        <div class="header-title"><h2></h2></div>
+        <div class="header-title__container"><h2 class="header-title"></h2></div>
 
         <nav class="header-menu">
-            <span> Анонсы </span>
-            <span> Мероприятия </span>
-            <span> Промокоды </span>
-            <span> Помощь </span>
-            <div class="marker"></div>
+            <span class="header-menu_items"> Анонсы </span>
+            <span class="header-menu_items"> Мероприятия </span>
+            <span class="header-menu_items"> Промокоды </span>
+            <span class="header-menu_items"> Помощь </span>
+            <div class="header-menu--marker"></div>
         </nav>
 
         <nav class="header-submenu">
@@ -35,7 +35,7 @@
 <section class="slider" data-speed="slow">
     <div class="slider-wrapper">
         {% for i in range(19) %}
-        <img src="../img/slider/{{i}}.jpg" class="slider_img" alt="#">
+        <img class="slider_img" src="../img/slider/{{i}}.jpg" alt="#">
         {% endfor %}
     </div>
 </section>
@@ -43,39 +43,144 @@
 <section class="menu">
     <article class="menu__card">
         <div class="wrapper-menu">
-            <h2>Основные навыки</h2>
-            <img src="../img/cards/sword.webp" alt="sword">
-            <div class="menu__btn-read">
-                <div>Читать все</div>
+            <h2 class="menu_title">Основные навыки</h2>
+            <img class="menu-img" src="../img/cards/sword.webp" alt="sword">
+
+            <div class="menu-card__table">
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Приглашение на одиночный танец. Заряженная атака</div>
+                    <div class="menu-card_description">
+                        Расходует часть выносливости и переключает стойку, начиная одиночный танец.
+                        Наносит противникам физический урон и меняет тип Архэ Фурины.
+                        Если во время заряженной атаки на поле боя присутствуют помощники Архонта — также меняет их тип.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Салон одиноких сердец. Элементальный навык</div>
+                    <div class="menu-card_description">
+                        Фурина вызывает на поле боя помощников из «Салона одиноких сердец».
+                        При этом, тип призванных существ зависит от архэ Архонта.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Да возрадуются люди. Взрыв стихии</div>
+                    <div class="menu-card_description">
+                        Фурина создает на поле боя сцену из пены и атакует противников Гидро уроном по площади в зависимости от своего
+                        максимального HP. Все члены отряда получают статус Всемирного веселья.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-memu__container">
+                <button class="btn-menu_read">Читать все</button>
             </div>
         </div>
     </article>
 
     <article class="menu__card">
         <div class="wrapper-menu">
-            <h2>Таланты</h2>
-            <img src="../img/cards/talents.webp" alt="talents">
-            <div class="menu__btn-read">
-                <div>Читать все</div>
+            <h2 class="menu_title">Таланты</h2>
+            <img class="menu-img" src="../img/cards/talents.webp" alt="talents">
+
+             <div class="menu-card__table">
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Бесконечный вальс</div>
+                    <div class="menu-card_description">
+                        Когда активный персонаж в отряде получает лечение с избытком и его источник не сама Фурина, Фурина в течение 4 сек.
+                        каждые 2 сек. восстанавливает HP членам отряда поблизости в количестве 2% от макс. HP каждого из них.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Неуслышанное признание</div>
+                    <div class="menu-card_description">
+                        Каждые 1000 ед. макс. HP усиливают Салон одиноких сердец Фурины другого архэ следующим образом:
+                        Урон, наносимый участниками салона, увеличивается на 0,7%, макс. 28%.
+                        Интервал, с которым Певец Потоков лечит активного персонажа поблизости понижается на 0,4%. Интервал этим способом можно понизить макс. на 16%.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Море - моя сцена</div>
+                    <div class="menu-card_description">
+                        Время отката способностей ксенохромных инородов Фонтмера снижается на 30%.
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-memu__container">
+                <button class="btn-menu_read">Читать все</button>
             </div>
         </div>
     </article>
 
     <article class="menu__card">
         <div class="wrapper-menu">
-            <h2>Созвездия</h2>
-            <img src="../img/cards/const.webp" alt="const">
-            <div class="menu__btn-read">
-                <div>Читать все</div>
+            <h2 class="menu_title">Созвездия</h2>
+            <img class="menu-img" src="../img/cards/const.webp" alt="const">
+
+            <div class="menu-card__table">
+                <div class="menu-card__items">
+                    <div class="menu-card_title">У любви, как у пташки, крылья, её нельзя никак поймать</div>
+                    <div class="menu-card_description">
+                        При использовании Да возрадуются люди Фурина получает 150 ед. фанфар.
+                        Также лимит фанфар Фурины увеличивается на 100 ед.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Сердце красавиц склонно к измене</div>
+                    <div class="menu-card_description">
+                        Пока действует навык Да возрадуются люди, прирост фанфар Фурины от увеличения или уменьшения HP персонажей
+                        поблизости увеличивается на 250%. Каждая ед. фанфар сверх лимита увеличивает макс. HP Фурины на 0,35%.
+                        Предельное увеличение макс. HP таким способом составляет 140%.
+                    </div>
+                </div>
+
+                <div class="menu-card__items">
+                    <div class="menu-card_title">Но секрет мой скрыт во мне, никто не узнает моё имя!</div>
+                    <div class="menu-card_description">
+                       Повышает уровень навыка Да возрадуются люди на 3. Макс. уровень: 15.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="btn-memu__container">
+                <button class="btn-menu_read">Читать все</button>
             </div>
         </div>
     </article>
 </section>
 
 <section class="focalors">
-    <img src="../img/focalor/bg.png">
+    <img class="focalors_bd" src="../img/bd/2.webp">
     <div class="wrapper">
-        <img src="../img/focalor/focalor.png" class="focalor_img">
+        <img class="focalors_pers" src="../img/focalors/focalors.png">
+        <div class="focalors__about">
+            <div class="focalors__name">Фурина</div>
+
+            <div class="focalors_voice">
+                <span class="focalors_rhombus"></span>
+                <p class="focalors__voice-actor">VA: MINASE Inori</p>
+
+                <button class="focalors__play-voice-btn">
+                    <span class="focalors__play-voice-img"></span>
+                    <audio class="focalors-audio" src="../../voice_lines/VO_JA_Furina_Hello.mp3"></audio>
+                </button>
+            </div>
+
+            <div class="focalors__info">
+                <span class="focalors_rhombus focalors_rhombus--light"></span>
+                <p class="focalors__text">Повелительница всех вод, людей, родов и законов» горячо любима своим народом.</p>
+                <p class="focalors__text">Она с неугасающей страстью следит за каждым судебным разбирательством в оперном театре «Эпиклез»
+                    и всегда принимает во внимание реакцию зрителей.
+                </p>
+            </div>
+
+        </div>
     </div>
 </section>
 
@@ -85,7 +190,7 @@
 {% block footer %}
 <footer class="footer">
     <section class="footer__contact">
-        <div class="wrapper">
+        <div class="wrapper wrapper__footer">
             <i class="fa-brands fa-facebook-f fa-xl"></i>
             <i class="fa-brands fa-youtube fa-xl"></i>
             <i class="fa-brands fa-instagram fa-xl"></i>
@@ -93,14 +198,25 @@
             <i class="fa-brands fa-reddit fa-xl"></i>
             <i class="fa-brands fa-vk fa-xl"></i>
             <i class="fa-brands fa-bilibili fa-xl"></i>
+            <i class="fa-brands fa-twitch fa-xl"></i>
         </div>
     </section>
 
     <section class="footer__info">
         <div class="wrapper">
-            <div class="footer__author">
-                <p>Stimorol</p>
-            </div>
+            <ul class="footer__subscription-news">
+                <li class="footer__subscription_info">
+                    <p class="footer__subscription_title">Подпишитесь на последние новости</p>
+                    <p class="footer__subscription_description">
+                        Подпишитесь на официальные новости Genshin Impact от Паймон, чтобы первыми узнавать о новинках, получать сведения о
+                        персонажах и быть в курсе наград временных событий!
+                    </p>
+                </li>
+                <li class="footer__subscription_form">
+                    <input class="footer__sub_input" type="email">
+                    <button class="footer__sub_btn">Подписаться</button>
+                </li>
+            </ul>
         </div>
     </section>
 </footer>
@@ -111,4 +227,5 @@
 <script src="https://kit.fontawesome.com/a0da6b1739.js" crossorigin="anonymous"></script>
 <script src="../js/slider.js"></script>
 <script src="../js/cards.js"></script>
+<script src="../js/voice.js"></script>
 {% endblock %}
