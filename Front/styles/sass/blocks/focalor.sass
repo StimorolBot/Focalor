@@ -1,0 +1,126 @@
+.focalors
+	position: relative
+	height: 730px
+	overflow: hidden
+
+.focalors_bd
+	position: absolute
+	top: 50%
+	left: 40%
+	margin-right: -50%
+	transform: translate(-50%, -50%)
+
+.focalors_pers
+	position: absolute
+	height: 880px
+	width: 912px
+	right: 0
+
+.focalors__about
+	position: absolute
+	top: 50%
+	left: 40%
+	margin-right: -50%
+	transform: translate(-50%, -50%)
+	width: 530px
+	height: 380px
+
+.focalors__name
+	font-size: 4em
+	font-style: italic
+	text-shadow: 4px 4px 6px black 
+
+.focalors_voice
+	display: flex 
+	position: relative
+	align-items: center
+	margin-top: 30px
+
+
+
+.focalors_rhombus
+	display: flex
+	position: absolute
+	z-index: 5
+	left: 2%
+	width: 25px
+	height: 25px
+	transform: rotate(45deg)
+	border: 2px solid #24333c
+	justify-content: center
+	align-items: center
+
+	&:before
+		content: ""
+		position: absolute
+		width: 13px
+		height: 13px
+		transform: rotate(90deg)
+		background-color:  #24333c
+
+.focalors__voice-actor
+	padding-left: 45px	
+	position: relative
+	background-color: #c96
+	color: #24333c
+	width: 85%
+	height: 55px
+	display: flex
+	align-items: center
+	font-size: 1.2em
+	font-weight: bold
+	border-top-left-radius: 10px
+	border-bottom-left-radius: 10px
+
+.focalors_rhombus--light
+	border: 2px solid #fff
+
+	&:before
+		content: ""
+		background-color: #fff
+
+.focalors__play-voice-btn
+	position: absolute
+	top: 0
+	right: 0
+	width: 15%
+	height: 55px
+	background-color: #c96
+	border-top-right-radius: 10px
+	border-bottom-right-radius: 10px
+	cursor: auto
+
+.focalors__play-voice-img
+	border-radius: 50%
+	display: flex
+	cursor: pointer
+	height: 50px
+	width: 50px
+	transition: 0.3s
+	background-position: center
+	background-image: url("../../img/focalors/micro.png")
+
+
+.focalors__play-voice-img--active
+	background-image: url("../../img/focalors/voice.gif")
+
+
+.focalors__info
+	position: absolute
+	bottom: 0
+	background: rgba(0, 0, 0, 0.14)
+	border-radius: 10px
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1)
+	backdrop-filter: blur(5.4px)
+	-webkit-backdrop-filter: blur(4.4px)
+	display: flex
+	justify-content: center
+	flex-direction: column
+	height: 190px
+
+.focalors__text
+	overflow: hidden
+	text-align: justify
+	padding: 0 45px
+	max-height: 70px
+	overflow: hidden
