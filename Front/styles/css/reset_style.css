@@ -34,8 +34,23 @@ button {
   cursor: pointer;
 }
 
+input{ 
+  border: none;
+  vertical-align: middle; 
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"]{
+  -webkit-appearance: none;
+}
+
 input:focus,
 button:focus {
   outline: none;
   border: none;
+}
+
+a{
+  text-decoration: none
 }
