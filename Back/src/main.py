@@ -36,7 +36,7 @@ app.include_router(fastapi_users.get_logout_router(auth_backend), tags=["auth"],
 app.include_router(fastapi_users.get_register_user(UserRead, UserCreate), tags=["auth"], )
 
 # подключать в самом конце, иначе выдает ошибку "Метод не разрешен"
-app.mount("/", StaticFiles(directory="../front"), name="css", )  # подключение css, img и js
+app.mount("/", StaticFiles(directory="../Front/"), name="css", )  # подключение css, js и img
 
 # адреса, имеющие доступ к бэку
 origins = [
@@ -62,7 +62,11 @@ app.add_middleware(
 
 @app.exception_handler(HTTPException)
 async def exception_handler(request: Request, exc: HTTPException):
-    return templates.TemplateResponse("error_page.html", {"request": request, "status_code": exc.status_code})
+    return templates.TemplateResponse("error.html", {
+        "request": request,
+        "status_code": exc.status_code,
+        "title": f"Error {exc.status_code}"
+    })
 
 
 @app.on_event("startup")
