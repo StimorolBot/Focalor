@@ -11,7 +11,7 @@ from starlette.exceptions import HTTPException
 
 from src.config import templates
 from src.router.router_admin import router_admin
-from src.router.router_user import router_page, router_authentication
+from src.router.router_user import router_user
 
 from src.app.authentication.user_manager import get_user_manager
 from src.app.authentication.cookie import auth_backend
@@ -25,9 +25,8 @@ app = FastAPI(title="main_app")
 add_pagination(app)
 
 # подключение роутеров
-app.include_router(router_page)
+app.include_router(router_user)
 app.include_router(router_admin)
-app.include_router(router_authentication)
 
 fastapi_users = FastAPIUsers[User, int](get_user_manager, [auth_backend], )
 
