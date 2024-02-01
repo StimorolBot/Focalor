@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block header %}
-<header class="header">
+<header class="header lock_padding">
     <div class="wrapper">
         <div class="header-title__container"><h2 class="header-title"></h2></div>
 
@@ -24,7 +24,7 @@
             </label>
 
             <span><i class="fa-brands fa-telegram fa-xl"></i></span>
-            <span onclick="crate_iframe();"> <i class="fa-solid fa-user fa-xl"></i></span>
+            <span><a class="header-popup-link" href="#login__form"><i class="fa-solid fa-user fa-xl"></i></a></span>
             <span><i class="fa-solid fa-magnifying-glass fa-xl"></i></span>
         </nav>
     </div>
@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block body %}
-<section class="slider" data-speed="slow">
+<section class="slider lock_padding" data-speed="slow">
     <div class="slider-wrapper">
         {% for i in range(19) %}
         <img class="slider_img" src="../img/slider/{{i}}.jpg" alt="#">
@@ -40,7 +40,7 @@
     </div>
 </section>
 
-<section class="menu">
+<section class="menu lock_padding">
     <article class="menu__card">
         <div class="wrapper-menu">
             <h2 class="menu_title">Основные навыки</h2>
@@ -156,7 +156,11 @@
 </section>
 
 <section class="focalors">
-    <img class="focalors_bd" src="../img/bd/2.webp">
+    <img class="focalors_bg focalors_bg--show" src="../img/bg/1.webp">
+    <img class="focalors_bg" src="../img/bg/2.webp">
+    <img class="focalors_bg" src="../img/bg/3.webp">
+    <img class="focalors_bg" src="../img/bg/4.webp">
+    <img class="focalors_bg" src="../img/bg/5.webp">
     <div class="wrapper">
         <img class="focalors_pers" src="../img/focalors/focalors.png">
         <div class="focalors__about">
@@ -179,12 +183,16 @@
                     и всегда принимает во внимание реакцию зрителей.
                 </p>
             </div>
-
         </div>
+        <ul class="focalors__indicator">
+            <li class="focalors__indicator_item focalors__indicator--active"></li>
+            <li class="focalors__indicator_item"></li>
+            <li class="focalors__indicator_item"></li>
+            <li class="focalors__indicator_item"></li>
+            <li class="focalors__indicator_item"></li>
+        </ul>
     </div>
 </section>
-
-<div class="iframe_container"> </div>
 {% endblock %}
 
 {% block footer %}
@@ -206,20 +214,81 @@
         <div class="wrapper">
             <ul class="footer__subscription-news">
                 <li class="footer__subscription_info">
-                    <p class="footer__subscription_title">Подпишитесь на последние новости</p>
+                    <h2 class="footer__subscription_title">Подпишитесь на последние новости</h2>
                     <p class="footer__subscription_description">
                         Подпишитесь на официальные новости Genshin Impact от Паймон, чтобы первыми узнавать о новинках, получать сведения о
                         персонажах и быть в курсе наград временных событий!
                     </p>
                 </li>
-                <li class="footer__subscription_form">
-                    <input class="footer__sub_input" type="email">
-                    <button class="footer__sub_btn">Подписаться</button>
+                <li class="footer__subscription-content">
+                    <form class="footer__subscription_form" action="">
+                        <input class="footer__sub_input" type="email" minlength="5" maxlength="30">
+                        <button class="footer__sub_btn">Подписаться</button>
+                    </form>
                 </li>
             </ul>
         </div>
     </section>
 </footer>
+{% endblock %}
+
+{% block popup %}
+<section class="popup" id="login__form">
+    <div class="popup__body">
+        <div class="wrapper popup_wrapper-form">
+            <button class="login__form_close">
+                <a class="login__form_close-link" href="#"><i class="fa-regular fa-rectangle-xmark fa-xl"></i></a>
+            </button>
+
+            <header class="login__header">
+                <h2 class="login__title" >Вход</h2>
+                <p class="login__sub-title">в учетную запись</p>
+            </header>
+
+            <form class="login__form" method="POST" action="/login" enctype="multipart/form-data">
+                <div class="login__form-container">
+                    <input class="login__username-input" name="username" type="text"
+                           maxlength="40" minlength="2" autocomplete="off" required>
+                    <label class="login__username-lbl">Имя пользователя / электронная почта</label>
+                    <div class="clear_login"> <!--<i class="fa-solid fa-xmark"></i>--> </div>
+                </div>
+
+                <div class="login__form-container">
+                    <input class="login__password-input" name="password" type="password"
+                       maxlength="14" minlength="5" autocomplete="off" required>
+                    <label class="login__password-lbl">Пароль</label>
+
+                    <button class="login__show-password" onclick="show_password();">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <!--<div class="clear_password">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>-->
+                </div>
+
+                <button class="login_btn" type="submit"> Войти </button>
+
+                <ul class="login__help-container">
+                    <li class="login__help"><a class="login__help_link" href="#">Столкнулись с проблемами?</a></li>
+                    <li class="login__help"><a class="login__help_link" href="#register__form">Зарегистрироваться сейчас</a></li>
+                </ul>
+            </form>
+
+            <footer class="login__footer">
+                <div class="login__choice-container">
+                    <p class="login__choice-title">Другие способы входа</p>
+                </div>
+
+                <div class="login__choosing-login-method">
+                    <i class="fa-brands fa-google"></i>
+                    <i class="fa-brands fa-apple"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 
@@ -228,4 +297,8 @@
 <script src="../js/slider.js"></script>
 <script src="../js/cards.js"></script>
 <script src="../js/voice.js"></script>
+<script src="../js/input.js"></script>
+<script src="../js/show_form.js"></script>
+<script src="../js/switch_theme.js"></script>
+<script src="../js/focalors_bg_slider.js"></script>
 {% endblock %}
