@@ -4,7 +4,6 @@ from fastapi import APIRouter, Depends, status
 
 from fastapi_users import models
 from fastapi_users.authentication import AuthenticationBackend, Authenticator, Strategy
-from fastapi_users.manager import UserManagerDependency
 from fastapi_users.openapi import OpenAPIResponseType
 
 
