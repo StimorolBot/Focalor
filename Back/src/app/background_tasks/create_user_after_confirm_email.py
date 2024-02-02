@@ -21,6 +21,7 @@ class CreateUser:
                         "data": "Токен невалиден"})
 
         elif self.token_request == self.token_render:
+            self.token_render = None
             return True
 
     async def create(self):
