@@ -1,29 +1,44 @@
+@import "../size.sass"
+
 .focalors
 	position: relative
 	height: 730px
 	overflow: hidden
 
-.focalors_bd
+	@include breakpoint(xxl)
+		.focalors
+			background-color: red
+			height: 500px
+
+.focalors_bg
 	position: absolute
 	top: 50%
-	left: 40%
-	margin-right: -50%
+	left: 50%
+	visibility: hidden
+	opacity: 0
 	transform: translate(-50%, -50%)
+	transition: 0.5s
+
+.focalors_bg--show
+	visibility: visible
+	opacity: 1
+	transition: 0.5s
 
 .focalors_pers
 	position: absolute
 	height: 880px
 	width: 912px
 	right: 0
+	
 
 .focalors__about
 	position: absolute
 	top: 50%
 	left: 40%
-	margin-right: -50%
 	transform: translate(-50%, -50%)
 	width: 530px
 	height: 380px
+
 
 .focalors__name
 	font-size: 4em
@@ -35,8 +50,6 @@
 	position: relative
 	align-items: center
 	margin-top: 30px
-
-
 
 .focalors_rhombus
 	display: flex
@@ -100,10 +113,8 @@
 	background-position: center
 	background-image: url("../../img/focalors/micro.png")
 
-
 .focalors__play-voice-img--active
 	background-image: url("../../img/focalors/voice.gif")
-
 
 .focalors__info
 	position: absolute
@@ -124,3 +135,27 @@
 	padding: 0 45px
 	max-height: 70px
 	overflow: hidden
+
+.focalors__indicator
+	position: absolute
+	bottom: 0
+	height: 25px
+	width: 350px
+	display: flex
+	justify-content: center
+	grid-gap: 2%
+	left: 50%
+	transform: translate(-50%, -50%)
+	align-items: flex-end
+
+.focalors__indicator_item
+	width: 18px
+	height: 18px
+	border-radius: 50%
+	background-color: #092845
+	opacity: 0.6
+	transition: 0.4s
+
+.focalors__indicator--active
+	opacity: 1
+	transition: 0.4s	
