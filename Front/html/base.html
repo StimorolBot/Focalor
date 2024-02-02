@@ -24,16 +24,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/css/reset_style.css">
+    <link rel="stylesheet" href="../styles/css/scroll.css">
 
     {% block style %} {% endblock %}
 
     <title> {{ title }}</title>
 </head>
 
-<body>
+<body class="lock_padding">
 {% block header%} {% endblock %}
 {% block body %} {% endblock %}
 {% block footer %} {% endblock %}
+{% block popup %} {% endblock %}
 </body>
 {% block script %} {% endblock %}
 </html>
