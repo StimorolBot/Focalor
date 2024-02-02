@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="../styles/css/main.css">
 {% endblock %}
 
+
 {% block header %}
 <header class="header lock_padding">
     <div class="wrapper">
@@ -34,8 +35,8 @@
 {% block body %}
 <section class="slider lock_padding" data-speed="slow">
     <div class="slider-wrapper">
-        {% for i in range(19) %}
-        <img class="slider_img" src="../img/slider/{{i}}.jpg" alt="#">
+        {% for img in list_img_slider %}
+        <img class="slider_img" src="../img/slider/{{img}}" alt="slider_img">
         {% endfor %}
     </div>
 </section>
@@ -156,11 +157,14 @@
 </section>
 
 <section class="focalors">
-    <img class="focalors_bg focalors_bg--show" src="../img/bg/1.webp">
-    <img class="focalors_bg" src="../img/bg/2.webp">
-    <img class="focalors_bg" src="../img/bg/3.webp">
-    <img class="focalors_bg" src="../img/bg/4.webp">
-    <img class="focalors_bg" src="../img/bg/5.webp">
+    {% for img in list_img_bg %}
+        {% if list_img_bg.index(img) == 0 %}
+            <img class="focalors_bg focalors_bg--show" src="../img/bg/{{img}}" alt="background_img">
+        {% else %}
+            <img class="focalors_bg" src="../img/bg/{{img}}" alt="background_img">
+        {% endif %}
+    {% endfor %}
+
     <div class="wrapper">
         <img class="focalors_pers" src="../img/focalors/focalors.png">
         <div class="focalors__about">
@@ -185,11 +189,13 @@
             </div>
         </div>
         <ul class="focalors__indicator">
-            <li class="focalors__indicator_item focalors__indicator--active"></li>
-            <li class="focalors__indicator_item"></li>
-            <li class="focalors__indicator_item"></li>
-            <li class="focalors__indicator_item"></li>
-            <li class="focalors__indicator_item"></li>
+            {% for indicator in range(indicators) %}
+                {% if indicator == 0 %}
+                    <li class="focalors__indicator_item focalors__indicator--active"></li>
+                {% else %}
+                    <li class="focalors__indicator_item"></li>
+                {% endif %}
+            {% endfor %}
         </ul>
     </div>
 </section>
