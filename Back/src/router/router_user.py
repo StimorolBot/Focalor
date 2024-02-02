@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, HTTPException, status
+from fastapi import APIRouter, Request
 
 from src.config import templates
 from src.app.background_tasks.create_user_after_confirm_email import CreateUser
