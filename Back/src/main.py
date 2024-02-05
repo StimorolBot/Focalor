@@ -33,6 +33,7 @@ fastapi_users = FastAPIUsers[User, int](get_user_manager, [auth_backend], )
 app.include_router(fastapi_users.get_login_router(auth_backend), tags=["auth"], )
 app.include_router(fastapi_users.get_logout_router(auth_backend), tags=["auth"], )
 app.include_router(fastapi_users.get_register_user(UserRead, UserCreate), tags=["auth"], )
+app.include_router(fastapi_users.get_reset_password_router(), tags=["auth"],)
 
 # подключать в самом конце, иначе выдает ошибку "Метод не разрешен"
 app.mount("/", StaticFiles(directory="../Front/"), name="css", )  # подключение css, js и img
@@ -44,7 +45,7 @@ origins = [
 
 # http://127.0.0.1:8000/docs документация
 # uvicorn src.main:app --reload - запуск сервера
-# celery -A src.app.authentication.background_tasks.send_email:celery worker --loglevel=INFO --pool=solo
+# celery -A src.app.background_tasks.send_email:celery worker --loglevel=INFO --pool=solo
 # - запуск celery (перезагружать после изменения кода) (прописывать путь туда, где вещается task)
 # celery -A src.config:celery flower - запуск веб интерфейса
 # http://localhost:5555/ интерфейс
@@ -64,7 +65,8 @@ async def exception_handler(request: Request, exc: HTTPException):
     return templates.TemplateResponse("error.html", {
         "request": request,
         "status_code": exc.status_code,
-        "title": f"Error {exc.status_code}"
+        "title": f"Error {exc.status_code}",
+        "error_details": exc.detail["data"]
     })
 
 
