@@ -1,24 +1,15 @@
-{% extends "authentication/login.html" %}
+{% extends 'authentication/base_auth.html' %}
 
-{% block head %}
-    <title>Register</title>
-    <link rel="stylesheet" href="../../css/authentication/register.css">
-{% endblock %}
-
-{% block title %}
-    Регистрация
-{% endblock %}
-
-{% block form %}
+{% block body %}
     <form method="POST" action="/register" enctype="multipart/form-data">
         <input name="email" id="email" type="email" required autocomplete="off" minlength="8" maxlength="40">
         <label class="username_lb">Электронная почта</label>
 
         <input name="cod_confirm" id="cod_confirm" type="text" required autocomplete="off" minlength="6" maxlength="6">
-        <label class="cod_confirm_lb">Код подтверждения</label>
-        <div class="cod_confirm_btn">Отправить</div>
+        <label class="cod_confirm_lb">Имя</label>
+        <!--<div class="cod_confirm_btn">Отправить</div>-->
 
-        <input name="password" id="password" type="password" required autocomplete="off" minlength="6" maxlength="22">
+        <input name="password" id="password" type="password" required autocomplete="off" minlength="8" maxlength="20">
         <label class="password_lb">Введите пароль</label>
 
         <input name="password_confirm" id="password_confirm" type="password" required autocomplete="off" minlength="6" maxlength="22">
@@ -39,6 +30,3 @@
     </form>
 {% endblock %}
 
-{% block script %}
-    <script src="../../js/register.js"></script>
-{% endblock %}
