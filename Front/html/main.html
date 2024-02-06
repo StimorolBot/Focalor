@@ -25,7 +25,7 @@
             </label>
 
             <span><i class="fa-brands fa-telegram fa-xl"></i></span>
-            <span><a class="header-popup-link" href="#login__form"><i class="fa-solid fa-user fa-xl"></i></a></span>
+            <span><a class="popup-link" href="#login__form"><i class="fa-solid fa-user fa-xl"></i></a></span>
             <span><i class="fa-solid fa-magnifying-glass fa-xl"></i></span>
         </nav>
     </div>
@@ -242,27 +242,27 @@
 <section class="popup" id="login__form">
     <div class="popup__body">
         <div class="wrapper popup_wrapper-form">
-            <button class="login__form_close">
-                <a class="login__form_close-link" href="#"><i class="fa-regular fa-rectangle-xmark fa-xl"></i></a>
+            <button class="popup__form_close">
+                <a class="popup__form_close-link" href="#"><i class="fa-regular fa-rectangle-xmark fa-xl"></i></a>
             </button>
 
-            <header class="login__header">
-                <h2 class="login__title" >Вход</h2>
-                <p class="login__sub-title">в учетную запись</p>
+            <header class="popup__header">
+                <h2 class="popup__title" >Вход</h2>
+                <p class="popup__sub-title">в учетную запись</p>
             </header>
 
-            <form class="login__form" method="POST" action="/login" enctype="multipart/form-data">
-                <div class="login__form-container">
-                    <input class="login__username-input" name="username" type="text"
-                           maxlength="40" minlength="2" autocomplete="off" required>
-                    <label class="login__username-lbl">Имя пользователя / электронная почта</label>
+            <form class="popup__form" method="POST" action="/login" enctype="multipart/form-data">
+                <div class="popup__form-container">
+                    <input class="popup__username-input" name="username" type="text"
+                           minlength="8" maxlength="40" autocomplete="off" required>
+                    <label class="popup__username-lbl">Имя пользователя / электронная почта</label>
                     <div class="clear_login"> <!--<i class="fa-solid fa-xmark"></i>--> </div>
                 </div>
 
-                <div class="login__form-container">
-                    <input class="login__password-input" name="password" type="password"
-                       maxlength="14" minlength="5" autocomplete="off" required>
-                    <label class="login__password-lbl">Пароль</label>
+                <div class="popup__form-container">
+                    <input class="popup__password-input" name="password" type="password"
+                       minlength="8" maxlength="20"  autocomplete="off" required>
+                    <label class="popup__password-lbl">Пароль</label>
 
                     <button class="login__show-password" onclick="show_password();">
                         <i class="fa-solid fa-eye"></i>
@@ -272,20 +272,20 @@
                         </div>-->
                 </div>
 
-                <button class="login_btn" type="submit"> Войти </button>
+                <button class="popup_btn" type="submit"> Войти </button>
 
                 <ul class="login__help-container">
                     <li class="login__help"><a class="login__help_link" href="#">Столкнулись с проблемами?</a></li>
-                    <li class="login__help"><a class="login__help_link" href="#register__form">Зарегистрироваться сейчас</a></li>
+                    <li class="login__help"><a class="popup-link" href="#register__form">Зарегистрироваться сейчас</a></li>
                 </ul>
             </form>
 
-            <footer class="login__footer">
-                <div class="login__choice-container">
-                    <p class="login__choice-title">Другие способы входа</p>
+            <footer class="popup__footer">
+                <div class="popup__choice-container">
+                    <p class="popup__choice-title">Другие способы входа</p>
                 </div>
 
-                <div class="login__choosing-login-method">
+                <div class="popup__choosing-login-method">
                     <i class="fa-brands fa-google"></i>
                     <i class="fa-brands fa-apple"></i>
                     <i class="fa-brands fa-facebook-f"></i>
@@ -294,6 +294,77 @@
             </footer>
         </div>
     </div>
+</section>
+
+<section class="popup"  id="register__form">
+    <div class="popup__body">
+        <div class="wrapper popup_wrapper-form">
+            <button class="popup__form_close">
+                  <a class="popup__form_close-link" href="#"><i class="fa-regular fa-rectangle-xmark fa-xl"></i></a>
+              </button>
+
+            <header class="popup__header">
+                <h2 class="popup__title" >Регистрация</h2>
+            </header>
+
+            <form class="popup__form popup__register" method="POST" action="/register" enctype="multipart/form-data">
+                <div class="popup__form-container">
+                    <input class="popup__email-input" name="email" type="email"
+                           required autocomplete="off" minlength="8" maxlength="40">
+                    <label class="popup__email_lbl">Электронная почта</label>
+                </div>
+
+                <div class="popup__form-container">
+                    <input class="popup__username-input" name="username" type="text"
+                           required autocomplete="off" minlength="8" maxlength="40">
+                    <label class="popup__username-lbl">Имя пользователя</label>
+                </div>
+
+                <div class="popup__form-container">
+                    <input class="popup__password-input" name="password" type="password"
+                           required autocomplete="off" minlength="8" maxlength="20">
+                    <label class="popup__password-lbl">Пароль</label>
+                </div>
+
+                 <div class="popup__form-container">
+                    <input class="popup__password-repeat-input" name="password" type="password"
+                           required autocomplete="off" minlength="8" maxlength="20">
+                    <label class="popup__password-repeat-lbl">Повторите пароль</label>
+                </div>
+
+                <div class="popup__terms-of-use-container">
+                    <input class="popup__checkbox"  type="checkbox" id="popup__checkbox" required>
+                    <label for="popup__checkbox" class="popup__custom-checkbox"></label>
+
+                    <div class="popup_terms-of-use">Мною прочитаны и приняты
+                        <a class="popup__terms-of-use-link" href="#">Пользовательское соглашение</a>
+                        и <a class="popup__terms-of-use-link" href="#">Политика конфиденциальности</a>
+                    </div>
+                </div>
+
+                <button class="popup_btn" type="submit">Регистрация</button>
+            </form>
+
+            <span class="popup__login_href-container">Уже есть учетная запись?
+                <a class="popup-link" href="#login__form">Войти</a>
+            </span>
+
+            <footer class="popup__footer">
+                <div class="popup__choice-container">
+                    <p class="popup__choice-title">Другие способы входа</p>
+                </div>
+
+                <div class="popup__choosing-login-method">
+                    <i class="fa-brands fa-google"></i>
+                    <i class="fa-brands fa-apple"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
 </section>
 {% endblock %}
 
