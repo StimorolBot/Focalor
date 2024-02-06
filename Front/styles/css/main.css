@@ -401,7 +401,7 @@ input[type=checkbox]:checked ~ .header-switch-theme:after {
 }
 
 .focalors__name {
-  font-size: 3em;
+  font-size: 4em;
   font-style: italic;
   text-shadow: 4px 4px 6px black;
 }
@@ -495,7 +495,7 @@ input[type=checkbox]:checked ~ .header-switch-theme:after {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 50%;
+  height: 190px;
 }
 
 .focalors__text {
@@ -610,12 +610,12 @@ input[type=checkbox]:checked ~ .header-switch-theme:after {
   height: 45px;
   width: 130px;
   background-color: #4a4545;
+  transition: 0.2s;
 }
-
-body.lock {
-  overflow: hidden;
-  transition: 0.3s;
-  width: 100%;
+.footer__sub_btn:hover {
+  background-color: #c8a200;
+  color: #000;
+  transition: 0.2s;
 }
 
 .popup {
@@ -669,24 +669,24 @@ body.lock {
   height: 98%;
 }
 
-.login__form_close {
+.popup__form_close {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 25px;
   height: 25px;
 }
-.login__form_close .fa-rectangle-xmark {
+.popup__form_close .fa-rectangle-xmark {
   cursor: pointer;
   color: #B5B8B1;
   transition: 0.3s;
 }
-.login__form_close .fa-rectangle-xmark:hover {
+.popup__form_close .fa-rectangle-xmark:hover {
   color: #4E5754;
   transition: 0.3s;
 }
 
-.login__header {
+.popup__header {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -695,7 +695,7 @@ body.lock {
   padding: 15px 0;
 }
 
-.login__form {
+.popup__form {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -704,13 +704,15 @@ body.lock {
   height: 300px;
 }
 
-.login__form-container {
+.popup__form-container {
   position: relative;
   width: 100%;
 }
 
-.login__username-input,
-.login__password-input {
+.popup__username-input,
+.popup__password-input,
+.popup__email-input,
+.popup__password-repeat-input {
   height: 50px;
   border-radius: 12px;
   border: 2px solid #B5B8B1;
@@ -719,8 +721,10 @@ body.lock {
   width: 100%;
 }
 
-.login__username-lbl,
-.login__password-lbl {
+.popup__username-lbl,
+.popup__password-lbl,
+.popup__email_lbl,
+.popup__password-repeat-lbl {
   pointer-events: none;
   transition: 0.3s;
   position: absolute;
@@ -730,17 +734,21 @@ body.lock {
   transform: translate(-50%, -50%);
 }
 
-.login__username-input:focus ~ .login__username-lbl,
-.login__username:valid ~ .login__username-lbl,
-.login__password-input:focus ~ .login__password-lbl,
-.login__password-input:valid ~ .login__password-lbl {
+.popup__email-input:focus ~ .popup__email_lbl,
+.popup__username-input:focus ~ .popup__username-lbl,
+.popup__username:valid ~ .popup__username-lbl,
+.popup__password-input:focus ~ .popup__password-lbl,
+.popup__password-input:valid ~ .popup__password-lbl,
+.popup__password-repeat-input:focus ~ .popup__password-repeat-lbl {
   font-size: 0.55em;
   transition: 0.3s;
   transform: translate(-50%, -183%);
 }
 
-.login__username-input:focus,
-.login__password-input:focus {
+.popup__email-input:focus,
+.popup__username-input:focus,
+.popup__password-input:focus,
+.popup__password-repeat-input:focus {
   border: 2px solid #B5B8B1;
 }
 
@@ -772,7 +780,7 @@ body.lock {
   color: #A5A5A5;
 }
 
-.login_btn {
+.popup_btn {
   height: 45px;
   border: none;
   width: 100%;
@@ -783,7 +791,7 @@ body.lock {
   font-size: 16px;
 }
 
-.login__footer {
+.popup__footer {
   width: 100%;
 }
 
@@ -804,13 +812,13 @@ body.lock {
   transition: 0.3s;
 }
 
-.login__choice-title {
+.popup__choice-title {
   overflow: hidden;
   text-align: center;
 }
 
-.login__choice-title:before,
-.login__choice-title:after {
+.popup__choice-title:before,
+.popup__choice-title:after {
   content: "";
   display: inline-block;
   vertical-align: middle;
@@ -820,23 +828,23 @@ body.lock {
   position: relative;
 }
 
-.login__choice-title:before {
+.popup__choice-title:before {
   margin-left: -100%;
   left: -2px;
 }
 
-.login__choice-title:after {
+.popup__choice-title:after {
   margin-right: -100%;
   right: -2px;
 }
 
-.login__choosing-login-method {
+.popup__choosing-login-method {
   display: flex;
   justify-content: center;
   grid-gap: 5%;
   padding: 20px 0;
 }
-.login__choosing-login-method i {
+.popup__choosing-login-method i {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -845,20 +853,100 @@ body.lock {
   cursor: pointer;
   border-radius: 50%;
 }
-.login__choosing-login-method .fa-google {
+.popup__choosing-login-method .fa-google {
   border: 1px solid #A5A5A5;
 }
-.login__choosing-login-method .fa-apple {
+.popup__choosing-login-method .fa-apple {
   color: #fff;
   background-color: #000;
 }
-.login__choosing-login-method .fa-facebook-f {
+.popup__choosing-login-method .fa-facebook-f {
   background-color: #3B5998;
   color: #fff;
 }
-.login__choosing-login-method .fa-twitter {
+.popup__choosing-login-method .fa-twitter {
   background-color: #1FAEE9;
   color: #fff;
+}
+
+.popup__terms-of-use-container {
+  position: relative;
+  font-size: 0.9em;
+  display: flex;
+  justify-content: center;
+}
+
+.popup_terms-of-use {
+  text-align: center;
+  overflow: hidden;
+  max-width: 80%;
+}
+
+#popup__checkbox {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
+}
+
+.popup__custom-checkbox {
+  cursor: pointer;
+}
+.popup__custom-checkbox:before {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 14px;
+  width: 14px;
+  border: 2px solid #FFBA00;
+  border-radius: 50%;
+  z-index: 1;
+  top: 50%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
+}
+.popup__custom-checkbox:after {
+  content: "";
+  display: block;
+  width: 9px;
+  height: 9px;
+  background-color: #D6AE01;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+#popup__checkbox:checked ~ .popup__custom-checkbox:after {
+  opacity: 1;
+}
+
+.popup__login_href-container {
+  position: relative;
+  font-size: 1em;
+  margin: 0 auto;
+}
+
+.popup-link,
+.popup__terms-of-use-link {
+  color: #D6AE01;
+  transition: 0.3s;
+}
+.popup-link:hover,
+.popup__terms-of-use-link:hover {
+  color: #FFBA00;
+  transition: 0.3s;
+}
+
+.popup__register {
+  justify-content: space-between;
 }
 
 /* .valid
@@ -912,6 +1000,12 @@ body.lock {
   display: inline-block;
   vertical-align: middle;
   font-size: 16px;
+}
+
+body.lock {
+  overflow: hidden;
+  transition: 0.3s;
+  width: 100%;
 }
 
 .wrapper {
