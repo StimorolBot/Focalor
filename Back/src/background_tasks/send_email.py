@@ -16,11 +16,11 @@ def send_email(state: UserStates, **kwargs):
 
     match state.value:
         case "on_after_register":
-            render_email_on_after_register(email=email, username=kwargs["username"])
+            render_email_on_after_register(email=email, username=kwargs["username"], email_subject="Добро пожаловать !")
         case "email_confirm":
-            render_email_confirm(email=email, token=kwargs["token"])
+            render_email_confirm(email=email, token=kwargs["token"], email_subject="Подтверждение почты")
         case "reset_password":
-            render_email_reset_password(email=email)
+            render_email_reset_password(email=email, email_subject="Сброс пароля", token=kwargs["token"])
         case _:
             raise "[!] неизвестное состояние"
 
