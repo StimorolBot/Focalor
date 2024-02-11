@@ -8,10 +8,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.config import templates
 from src.database import get_async_session
-from src.app.authentication.models import User
-from src.app.admin_operations.schemas import PaginationResponse
-from src.app.admin_operations.operations import AdminOperations
+from src.app.authentication.models.user import User
 from src.app.authentication.user_manager import current_user
+from src.app.authentication.shemas.admmin import PaginationResponse
+from src.app.authentication.operations.admin_operations import AdminOperations
 
 router_admin = APIRouter(tags=["admin"])
 admin_operation = AdminOperations()
@@ -20,7 +20,8 @@ Page = Page.with_custom_options(size=Query(default=5, ge=3, le=6))
 
 @router_admin.get("/admin")
 async def get_admin(request: Request, user=Depends(current_user)):
-    return await admin_operation.check_admin(template=templates.TemplateResponse("admin/admin.html", {"request": request}), user=user)
+    return await admin_operation.check_admin(template=templates.TemplateResponse("admin/admin.html",
+                                                                                 {"request": request, "title": "Admin"}), user=user)
 
 
 @router_admin.get("/admin/table")
@@ -34,4 +35,4 @@ async def pagination(request: Request, session: AsyncSession = Depends(get_async
     pages = [i for i in range(1, pages[1] + 1)]
     return await admin_operation.check_admin(template=templates.TemplateResponse("admin/admin_table.html",
                                                                                  {"request": request, "users": paginate_list[1],
-                                                                                  "btns": pages}), user=user)
+                                                                                  "btns": pages, "title": "Users table"}), user=user)
