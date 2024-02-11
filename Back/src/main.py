@@ -15,8 +15,8 @@ from src.router.router_user import router_user
 
 from src.app.authentication.user_manager import get_user_manager
 from src.app.authentication.cookie import auth_backend
-from src.app.authentication.schemas import UserRead, UserCreate
-from src.app.authentication.models import User
+from src.app.authentication.shemas.user_auth import UserRead, UserCreate
+from src.app.authentication.models.user import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 
 app = FastAPI(title="main_app")
@@ -45,7 +45,7 @@ origins = [
 
 # http://127.0.0.1:8000/docs документация
 # uvicorn src.main:app --reload - запуск сервера
-# celery -A src.app.background_tasks.send_email:celery worker --loglevel=INFO --pool=solo
+# celery -A src.background_tasks.send_email:celery worker --loglevel=INFO --pool=solo
 # - запуск celery (перезагружать после изменения кода) (прописывать путь туда, где вещается task)
 # celery -A src.config:celery flower - запуск веб интерфейса
 # http://localhost:5555/ интерфейс
