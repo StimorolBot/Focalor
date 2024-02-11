@@ -23,3 +23,5 @@ SMTP_TOKEN = os.environ.get("SMTP_TOKEN")
 SMTP_PORT = os.environ.get("SMTP_PORT")
 SMTP_HOST = os.environ.get("SMTP_HOST")
 SMTP_EMAIL = os.environ.get("SMTP_EMAIL")
+
+LIFETIME = os.environ.get("LIFETIME")
