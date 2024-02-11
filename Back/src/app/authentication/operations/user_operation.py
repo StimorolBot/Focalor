@@ -1,6 +1,13 @@
 from datetime import datetime
 from fastapi_users import schemas
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends
+
+from pydantic import EmailStr
+from sqlalchemy import update, insert
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.database import get_async_session
+from src.app.authentication.models import User
 from src.operations.user.schemas import Operations
 
 
@@ -29,6 +36,12 @@ class UserOperations(Operations):
             raise HTTPException(status_code=status.HTTP_408_REQUEST_TIMEOUT,
                                 detail={"code": "TIMEOUT",
                                         "data": "Время ожидания токена истекло"})
+
+    @staticmethod
+    async def news_letter_update(user_db: User, user_email: EmailStr, session: AsyncSession = Depends(get_async_session)):
+        stmt = update(user_db).where(user_db.email == user_email).values(is_subscription=True, time=datetime.utcnow)
+        await session.execute(stmt)
+        await session.commit()
 
 
 user = UserOperations()

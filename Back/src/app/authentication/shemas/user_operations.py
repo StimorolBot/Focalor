@@ -1,15 +1,15 @@
 from fastapi import Request
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional, Type
 from fastapi_users import schemas
 
 from fastapi_users.manager import BaseUserManager
-#from src.app.authentication.user_manager import UserManager
 
 
 class Operations(BaseModel):
+    user_email: Optional[EmailStr] = None
     ttl: Optional[datetime] = None
     token: Optional[str] = None
     token_request: Optional[str] = None

@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from fastapi.param_functions import Form
 from fastapi_users.router.common import ErrorCode
 
-from pydantic import EmailStr
+from pydantic import EmailStr, BaseModel
 from pydantic.functional_validators import model_validator
 
 from datetime import datetime
@@ -50,11 +50,11 @@ class UserCreate(schemas.BaseUserCreate):
     def check_password(self):
         psd = self.password
         forbidden_symbols = " @!#$%^&*()_-+=/.,:;[]{}"
-        if len(psd) <= 6:
+        if len(psd) <= 8:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail={"code": ErrorCode.REGISTER_INVALID_PASSWORD,
-                        "data": "Длинна пароля должна быть больше 6 символов"})
+                        "data": "Длинна пароля должна быть больше 8 символов"})
 
         elif [symbol for symbol in psd if symbol in forbidden_symbols]:
             raise HTTPException(
@@ -65,4 +65,14 @@ class UserCreate(schemas.BaseUserCreate):
 
 
 class UserUpdate(schemas.BaseUserUpdate):
-    pass
+    ...
+
+
+class UserResetPassword(BaseModel):
+    email: Annotated[EmailStr, Form(min_length=8, max_length=40)]
+    token: Annotated[str, Form(max_length=6)]
+    password: Annotated[str, Form(min_length=8, max_length=20)]
+    password_repeat: Annotated[str, Form(min_length=8, max_length=20)]
+
+    class Config:
+        from_attributes = True
