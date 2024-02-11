@@ -4,8 +4,6 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from src.config import DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT
-from src.app.authentication.models import Base
-
 from alembic import context
 
 # this is the Alembic Config object, which provides
@@ -27,6 +25,13 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
+
+# если таблицы в разных файлах, то их все нужно импортировать
+from src.app.authentication.models.base import Base
+from src.app.authentication.models.user import User
+from src.app.authentication.models.role import Role
+from src.app.authentication.models.news_letter import NewsLetter
+
 target_metadata = Base.metadata
 
 
