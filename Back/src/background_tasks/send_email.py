@@ -1,11 +1,11 @@
 import smtplib
 
 from email.message import EmailMessage
-from src.help_func.user_states import UserStates
+from src.app.authentication.operations.states import UserStates
 from src.config import celery, SMTP_HOST, SMTP_PORT, SMTP_EMAIL, SMTP_TOKEN
-from src.app.background_tasks.email_templates import (render_email_on_after_register,
-                                                      render_email_confirm,
-                                                      render_email_reset_password)
+from src.background_tasks.email_templates import (render_email_on_after_register,
+                                                  render_email_confirm,
+                                                  render_email_reset_password)
 
 
 @celery.task
