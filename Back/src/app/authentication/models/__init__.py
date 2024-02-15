@@ -1,9 +1,11 @@
-from src.app.authentication.models.base import Base
-from src.app.authentication.models.user import User
-from src.app.authentication.models.role import Role
-
 __all__ = (
     "Base",
     "User",
-    "Role"
+    "Role",
+    "NewsLetter"
 )
+
+from .base import Base
+from .user import User
+from .role import Role
+from .news_letter import NewsLetter
