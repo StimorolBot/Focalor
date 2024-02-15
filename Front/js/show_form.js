@@ -2,7 +2,7 @@ let unlock = true;
 
 const dellay = 300;
 const body = document.querySelector("body"); 
-const popup_link = document.querySelectorAll(".header-popup-link");
+const popup_link = document.querySelectorAll(".popup-link");
 const lock_padding = document.querySelectorAll(".lock_padding");
 
 
@@ -87,7 +87,7 @@ if (popup_link.length > 0){
 }
  
 
-const btn_close_popup = document.querySelectorAll(".login__form_close-link");
+const btn_close_popup = document.querySelectorAll(".popup__form_close-link");
 if (btn_close_popup.length > 0){
 	for (let index = 0; index < btn_close_popup.length; index++){
 		const el = btn_close_popup[index];
