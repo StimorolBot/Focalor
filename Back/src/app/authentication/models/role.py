@@ -4,11 +4,11 @@ from typing import TYPE_CHECKING
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.models.base import Base
-from src.models.custom_type import intpk
+from .base import Base
+from .custom_type import intpk
 
 if TYPE_CHECKING:
-    from src.models.user_models import User
+    from .user import User
 
 
 class Role(Base):
@@ -16,5 +16,6 @@ class Role(Base):
 
     id: Mapped[intpk]
     user_id: Mapped[UUID] = mapped_column(ForeignKey("User_Table.id"), unique=True)
-    user: Mapped["User"] = relationship(back_populates="role")
+    email: Mapped[str] = mapped_column(unique=True, default=None, server_default="")
     role: Mapped[str] = mapped_column(String(length=5), default="user", server_default="user")
+    user: Mapped["User"] = relationship(back_populates="user_role")
