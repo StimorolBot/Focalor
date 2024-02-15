@@ -26,13 +26,14 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 
-# если таблицы в разных файлах, то их все нужно импортировать
+# если таблицы в разных файлах, то их все нужно импортировать (хз через раз получается,
+# сейчас создалось все при подключении User, в прошлый раз так не работало, мб это из за того, что User основная таблица)
 from src.app.authentication.models.base import Base
 from src.app.authentication.models.user import User
 from src.app.authentication.models.role import Role
 from src.app.authentication.models.news_letter import NewsLetter
 
-target_metadata = Base.metadata
+target_metadata = User.metadata
 
 
 # target_metadata = None
