@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1 class="error">Ошибка {{ status_code }}</h1>
-<h2 class="error_details">{{ error_details }}</h2>
+<div class="error">
+    <h1 class="error__title">Ошибка {{ status_code }}</h1>
+    <h2 class="error_details">{{ error_details }}</h2>
+</div>
 {% endblock %}
