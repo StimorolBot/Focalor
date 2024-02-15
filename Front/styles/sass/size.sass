@@ -1,6 +1,18 @@
 @mixin breakpoint($point)
     @if $point == min-width
-        @media (max-width: 228px)
+        @media (max-width: 280px)
+             @content
+    
+    @else if $point == 330
+        @media (max-width: 330px)
+             @content
+
+    @else if $point == 380
+        @media (max-width: 380px)
+             @content
+
+    @else if $point == 455
+        @media (max-width: 455px)
              @content
 
     @else if $point == xs
@@ -19,6 +31,10 @@
         @media (max-width: 765px)
              @content
 
+    @else if $point == xs_lg
+        @media (max-width: 990px)
+             @content
+
     @else if $point == lg
         @media (max-width: 1110px)
             @content
@@ -30,3 +46,9 @@
     @else if $point == xxl
         @media (max-width: 1400px)
              @content
+    
+    @else if $point == 1595
+        @media (max-width: 1595px)
+             @content
+
+             
