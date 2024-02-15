@@ -1,14 +1,15 @@
 from datetime import datetime
 from fastapi_users import schemas
-from fastapi import HTTPException, status, Depends
+from fastapi import HTTPException, status
 
 from pydantic import EmailStr
-from sqlalchemy import update, insert
+from sqlalchemy import select, insert, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database import get_async_session
-from src.app.authentication.models import User
-from src.operations.user.schemas import Operations
+from src.database import async_session_maker
+from src.app.authentication.models.user import User
+from src.app.authentication.models.news_letter import NewsLetter
+from src.app.authentication.shemas.user_operations import Operations
 
 
 class UserOperations(Operations):
@@ -25,7 +26,7 @@ class UserOperations(Operations):
         elif (self.token_request == self.token) and await self.ttl_check() is True:
             return True
 
-    async def create(self):
+    async def create_user(self):
         created_user = await self.user_manager.create(user_create=self.user_create, safe=True, request=self.request)
         return schemas.model_validate(self.user_schema, created_user)
 
@@ -38,8 +39,19 @@ class UserOperations(Operations):
                                         "data": "Время ожидания токена истекло"})
 
     @staticmethod
-    async def news_letter_update(user_db: User, user_email: EmailStr, session: AsyncSession = Depends(get_async_session)):
-        stmt = update(user_db).where(user_db.email == user_email).values(is_subscription=True, time=datetime.utcnow)
+    async def create_table(email: EmailStr, tables: list):
+        async with async_session_maker() as session:
+            user_id = select(User.id).where(User.email == email)
+            for table in tables:
+                stmt = insert(table).values({"user_id": user_id, "email": email})
+                await session.execute(stmt)
+                await session.commit()
+
+    @staticmethod
+    async def subscription_news_letter(email: EmailStr, session: AsyncSession):
+        stmt = update(NewsLetter).where(NewsLetter.email == email).values({
+            "is_subscription": True,
+            "subscription_date": datetime.utcnow()})
         await session.execute(stmt)
         await session.commit()
 
