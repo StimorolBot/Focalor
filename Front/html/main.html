@@ -148,7 +148,6 @@
                 </div>
             </div>
 
-
             <div class="btn-memu__container">
                 <button class="btn-menu_read">Читать все</button>
             </div>
@@ -165,7 +164,7 @@
         {% endif %}
     {% endfor %}
 
-    <div class="wrapper">
+    <div class="wrapper focalors__wrapper">
         <img class="focalors_pers" src="../img/focalors/focalors.png">
         <div class="focalors__about">
             <div class="focalors__name">Фурина</div>
@@ -176,7 +175,7 @@
 
                 <button class="focalors__play-voice-btn">
                     <span class="focalors__play-voice-img"></span>
-                    <audio class="focalors-audio" src="../../voice_lines/VO_JA_Furina_Hello.mp3"></audio>
+                    <audio class="focalors-audio" src="../../audio/VO_JA_Furina_Hello.mp3"></audio>
                 </button>
             </div>
 
@@ -227,8 +226,9 @@
                     </p>
                 </li>
                 <li class="footer__subscription-content">
-                    <form class="footer__subscription_form" action="">
-                        <input class="footer__sub_input" type="email" minlength="5" maxlength="30">
+                    <form class="footer__subscription_form" action="/subscribe" method="POST">
+                        <input class="footer__sub_input" type="email" name="email" id="email" minlength="8" maxlength="40"
+                               required autocomplete="off">
                         <button class="footer__sub_btn">Подписаться</button>
                     </form>
                 </li>
@@ -253,20 +253,20 @@
 
             <form class="popup__form" method="POST" action="/login" enctype="multipart/form-data">
                 <div class="popup__form-container">
-                    <input class="popup__username-input" name="username" type="text"
+                    <input class="popup__input" name="username" type="text"
                            minlength="8" maxlength="40" autocomplete="off" required>
-                    <label class="popup__username-lbl">Имя пользователя / электронная почта</label>
+                    <label class="popup__lbl">Имя пользователя / электронная почта</label>
                     <div class="clear_login"> <!--<i class="fa-solid fa-xmark"></i>--> </div>
                 </div>
 
                 <div class="popup__form-container">
-                    <input class="popup__password-input" name="password" type="password"
+                    <input class="popup__input" name="password" type="password"
                        minlength="8" maxlength="20"  autocomplete="off" required>
-                    <label class="popup__password-lbl">Пароль</label>
+                    <label class="popup__lbl">Пароль</label>
 
-                    <button class="login__show-password" onclick="show_password();">
+                    <div class="popup__show-password">
                         <i class="fa-solid fa-eye"></i>
-                    </button>
+                    </div>
                     <!--<div class="clear_password">
                             <i class="fa-solid fa-xmark"></i>
                         </div>-->
@@ -275,7 +275,7 @@
                 <button class="popup_btn" type="submit"> Войти </button>
 
                 <ul class="login__help-container">
-                    <li class="login__help"><a class="login__help_link" href="#">Столкнулись с проблемами?</a></li>
+                    <li class="login__help"><a class="popup-link" href="reset__password">Забыли пароль?</a></li>
                     <li class="login__help"><a class="popup-link" href="#register__form">Зарегистрироваться сейчас</a></li>
                 </ul>
             </form>
@@ -309,27 +309,33 @@
 
             <form class="popup__form popup__register" method="POST" action="/register" enctype="multipart/form-data">
                 <div class="popup__form-container">
-                    <input class="popup__email-input" name="email" type="email"
+                    <input class="popup__input" name="email" type="email"
                            required autocomplete="off" minlength="8" maxlength="40">
-                    <label class="popup__email_lbl">Электронная почта</label>
+                    <label class="popup__lbl">Электронная почта</label>
                 </div>
 
                 <div class="popup__form-container">
-                    <input class="popup__username-input" name="username" type="text"
+                    <input class="popup__input" name="username" type="text"
                            required autocomplete="off" minlength="8" maxlength="40">
-                    <label class="popup__username-lbl">Имя пользователя</label>
+                    <label class="popup__lbl">Имя пользователя</label>
                 </div>
 
                 <div class="popup__form-container">
-                    <input class="popup__password-input" name="password" type="password"
+                    <input class="popup__input" name="password" type="password"
                            required autocomplete="off" minlength="8" maxlength="20">
-                    <label class="popup__password-lbl">Пароль</label>
+                    <label class="popup__lbl">Пароль</label>
+                    <button class="popup__show-password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
                 </div>
 
                  <div class="popup__form-container">
-                    <input class="popup__password-repeat-input" name="password" type="password"
+                    <input class="popup__input" name="password" type="password"
                            required autocomplete="off" minlength="8" maxlength="20">
-                    <label class="popup__password-repeat-lbl">Повторите пароль</label>
+                    <label class="popup__lbl">Повторите пароль</label>
+                     <button class="popup__show-password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
                 </div>
 
                 <div class="popup__terms-of-use-container">
@@ -366,6 +372,59 @@
     </div>
 
 </section>
+
+<section class="popup" id="reset__password">
+    <div class="popup__body popup__body-reset-password">
+        <div class="wrapper popup_wrapper-form">
+            <button class="popup__form_close">
+                  <a class="popup__form_close-link" href="#"><i class="fa-regular fa-rectangle-xmark fa-xl"></i></a>
+            </button>
+
+            <header class="popup__header popup__header-reset-password">
+                <h2 class="popup__title" >Сброс пароля</h2>
+            </header>
+
+            <form class="popup__form popup__form-reset-password" method="POST" action="/reset-password" enctype="multipart/form-data">
+
+                <div class="popup__form-container popup__form-slide-one">
+                    <input class="popup__input" name="email" type="email" id="email_reset_password"
+                           required autocomplete="off" minlength="8" maxlength="40">
+                    <label class="popup__lbl">Электронная почта</label>
+                </div>
+
+                <div class="popup__form-container popup__form-slide-one">
+                    <input class="popup__input" name="code" type="text"
+                           required autocomplete="off" maxlength="6">
+                    <label class="popup__lbl">Код подтверждения</label>
+                    <button class="popup__btn-send">Отправить</button>
+                </div>
+
+                <div class="popup__form-container popup__form-slide-two">
+                    <input class="popup__input" name="password" type="password"
+                           required autocomplete="off" minlength="8" maxlength="20">
+                    <label class="popup__lbl">Пароль</label>
+                    <button class="popup__show-password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+
+                 <div class="popup__form-container popup__form-slide-two">
+                     <input class="popup__input" name="password" type="password"
+                           required autocomplete="off" minlength="8" maxlength="20">
+                     <label class="popup__lbl">Повторите пароль</label>
+                     <button class="popup__show-password">
+                         <i class="fa-solid fa-eye"></i>
+                     </button>
+                </div>
+                <ul class="indicator__steps-container">
+                    <li class="indicator__steps-reset-pwd indicator__steps-reset-pdw_active"></li>
+                    <li class="indicator__steps-reset-pwd"></li>
+                </ul>
+            </form>
+
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 
@@ -378,4 +437,6 @@
 <script src="../js/show_form.js"></script>
 <script src="../js/switch_theme.js"></script>
 <script src="../js/focalors_bg_slider.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="../js/no_reload.js"></script>
 {% endblock %}
