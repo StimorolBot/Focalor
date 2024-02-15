@@ -1,8 +1,3 @@
-body.lock
-	overflow: hidden
-	transition: 0.3s
-	width: 100%
-
 .popup		
 	position: fixed
 	width: 100%
@@ -49,7 +44,7 @@ body.lock
 	position: relative
 	height: 98%
 
-.login__form_close
+.popup__form_close
 	position: absolute
 	top: 5px
 	right: 5px
@@ -65,7 +60,7 @@ body.lock
 			color: #4E5754
 			transition: 0.3s
 
-.login__header
+.popup__header
 	display: flex
 	justify-content: center
 	flex-direction: column
@@ -74,7 +69,7 @@ body.lock
 	padding: 15px 0
 
 
-.login__form
+.popup__form
 	display: flex
 	justify-content: space-around
 	flex-direction: column
@@ -82,21 +77,11 @@ body.lock
 	overflow: hidden
 	height: 300px
 
-.login__form-container
+.popup__form-container
 	position: relative
 	width: 100%
 
-.login__username-input,
-.login__password-input
-	height: 50px
-	border-radius: 12px
-	border: 2px solid  #B5B8B1
-	background-color: transparent
-	padding-left: 15px
-	width: 100%
-
-.login__username-lbl,
-.login__password-lbl
+.popup__lbl
 	pointer-events: none
 	transition: 0.3s
 	position: absolute
@@ -105,45 +90,7 @@ body.lock
 	width: 100%
 	transform: translate(-50%, -50%)
 
-.login__username-input:focus ~ .login__username-lbl,
-.login__username:valid ~ .login__username-lbl,	
-.login__password-input:focus ~ .login__password-lbl,
-.login__password-input:valid ~ .login__password-lbl
-	font-size: 0.55em
-	transition: 0.3s
-	transform: translate(-50%, -183%)
-
-.login__username-input:focus,
-.login__password-input:focus
-	border: 2px solid  #B5B8B1
-
-.clear_login
-	border: 2px solid gold
-	position: absolute
-	width: 20px
-	height: 20px
-	top: 50%
-	left: 95%
-	transform: translate(-50%, -50%)
-
-.login__show-password
-	cursor: pointer
-	width: 24px
-	height: 24px
-	position: absolute
-	top: 50%
-	left: 95%
-	transform: translate(-50%, -50%)
-
-	i
-		color: #4C514A
-		transition: 0.2s
-				
-		&:hover
-			transition: 0.2s
-			color: #A5A5A5
-
-.login_btn
+.popup_btn
 	height: 45px
 	border: none
 	width: 100%
@@ -153,7 +100,7 @@ body.lock
 	cursor: not-allowed
 	font-size: 16px
 
-.login__footer
+.popup__footer
 	width: 100%
 
 .login__help-container
@@ -171,12 +118,12 @@ body.lock
 		color: #D6AE01
 		transition: 0.3s
 
-.login__choice-title
+.popup__choice-title
 	overflow: hidden
 	text-align: center
 
-.login__choice-title:before,
-.login__choice-title:after
+.popup__choice-title:before,
+.popup__choice-title:after
 	content: ""
 	display: inline-block
 	vertical-align: middle
@@ -185,15 +132,15 @@ body.lock
 	background-color: #A5A5A5
 	position: relative
 
-.login__choice-title:before
+.popup__choice-title:before
 	margin-left: -100%
 	left: -2px
 
-.login__choice-title:after
+.popup__choice-title:after
 	margin-right: -100%
 	right: -2px
 
-.login__choosing-login-method
+.popup__choosing-login-method
 	display: flex
 	justify-content: center
 	grid-gap: 5%
@@ -222,68 +169,3 @@ body.lock
 	.fa-twitter
 		background-color: #1FAEE9
 		color: #fff
-
-
-
-/*
-
-	
-.valid
-	border: 1px solid #44944A
-	transition: 0.3s
-
-.valid_span
-	color: #44944A
-	transition: 0.3s
-
-.invalid
-	border: 1px solid #FF0033
-	transition: 0.3s
-
-.invalid_span
-	color: #FF0033
-	transition: 0.3s		
-
-
-
-.clear_password
-	border: 2px solid gold
-	position: absolute
-	top: 98px
-	right: 32px
-	scale: 0.7
-	width: 20px
-	height: 30px
-
-.fa-xmark
-	cursor: pointer
-	border-radius: 50%
-	background-color: #4C514A
-	color:#fff
-	padding: 2px 4px
-	transition: 0.1s
-
-.fa-xmark:hover
-	background-color: #B5B8B1
-	transition: 0.1s
-
-
-
-
-
-
-
-
-.select_login_title
-	overflow: hidden
-	border: 2px solid gold
-
-
-
-.select_login_title span
-	display: inline-block
-	vertical-align: middle
-	font-size: 16px
-
-
-
