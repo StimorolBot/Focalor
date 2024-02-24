@@ -28,9 +28,8 @@ async def get_home_page(request: Request):
 
 
 @router_user.get("/verified/{token}")
-async def get_verified_page(request: Request):
-    user.token_request = request["path"].split("/")[2]
-    if await user.verified_token() is True:
+async def get_verified_page(request: Request, token: str):
+    if await user.verified_token(token_request=token) is True:
         await user.create_user()
         return templates.TemplateResponse("verified.html", {"request": request, "title": "Verified",
                                                             "msg": "Успешное подтверждение почты !"})
@@ -58,3 +57,8 @@ async def send_code(request: Request):
         send_email(state=UserStates.RESET_PASSWORD, token=token_generate["token"], user_email=data_email)
 
     return await request.json()
+
+
+@router_user.get("/comment")
+async def get_comment_page(request: Request):
+    return templates.TemplateResponse("page/comment.html", {"request": request, "title": "Comment"})
