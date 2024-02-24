@@ -5,7 +5,11 @@ __pycache__
 Scripts
 pyvenv.cfg
 .env
+.test.env
 main.css.map
+admin.css.map
+comment.css.map
 Redis-x64-5.0.14.1.zip
 script.py.mako
 README
+.pytest_cache
