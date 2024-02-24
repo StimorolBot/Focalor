@@ -1,44 +1,17 @@
-.comment__container {
-  border: 2px solid red;
-  height: 80%;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import "../../size.sass"
+ *   |         ^^^^^^^^^^^^^^^^^
+ *   '
+ *   main.sass 1:9  root stylesheet */
 
-.img-user__container {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  background-color: red;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"../../size.sass\"\d\a   \2502          ^^^^^^^^^^^^^^^^^\a   \2575 \a   main.sass 1:9  root stylesheet";
 }
-.img-user__container .fa-user {
-  cursor: pointer;
-  scale: 2;
-}
-
-.comment__form-container {
-  border: 2px solid hotpink;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.comment__form {
-  width: 80%;
-  height: 75%;
-  border: 2px solid green;
-}
-
-.comment_lbl {
-  border: 2px solid black;
-}
-
-.comment-content {
-  border: 2px solid darkblue;
-  border-radius: 10px;
-}
-
-.comment-btn {
-  border: 2px solid red;
-}
-
-/*# sourceMappingURL=comment.css.map */
