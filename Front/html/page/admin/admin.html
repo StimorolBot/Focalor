@@ -1,0 +1,54 @@
+{% extends '/base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="../styles/css/admin.css">
+{% endblock %}
+
+{% block body %}
+<div class="admin__container">
+    <aside class="admin__panel">
+        <div class="admin__nav-bg-container">
+            <img class="admin__nav-bg" src="../img/focalors/admin_bg.png" alt="bg">
+        </div>
+
+        <nav class="admin__nav">
+            <ul class="admin__nav-container">
+                <li class="admin__nav-item"><a class="admin__nav-link" href="#">Основная информация</a></li>
+                <li class="admin__nav-item"><a class="admin__nav-link" href="#">Пользователи</a></li>
+                <li class="admin__nav-item"><a class="admin__nav-link" href="#">Последняя активность</a></li>
+                <li class="admin__nav-item"><a class="admin__nav-link" href="#">Сведения об ошибках</a></li>
+                <li class="admin__nav-item"><a class="admin__nav-link" href="#">Статистика</a></li>
+            </ul>
+        </nav>
+</aside>
+
+    <section class="admin__table">
+    <div class="wrapper">
+        <table class="admin__table-container">
+            <tr class="admin__table-row">
+                <td class="admin__table-column">UUID</td>
+                <td class="admin__table-column">Имя</td>
+                <td class="admin__table-column">Дата регистрации</td>
+                <td class="admin__table-column">Почта</td>
+                <td class="admin__table-column">Удалить</td>
+            </tr>
+            {% for user in users %}
+            <tr class="admin__table-row">
+                <td class="admin__table-column">{{ user.id}}</td>
+                <td class="admin__table-column">{{ user.username }}</td>
+                <td class="admin__table-column">{{ user.time }}</td>
+                <td class="admin__table-column">{{ user.email }}</td>
+                <td class="admin__table-column"><i class="fa-solid fa-xmark"></i></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="admin__table-btn-container">
+            {% for btn in btns %}
+            <button class="admin__table-btn"> {{ btn }}</button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+</div>
+{% endblock %}

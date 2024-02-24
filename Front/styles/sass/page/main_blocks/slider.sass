@@ -1,0 +1,42 @@
+@import "../size.sass"
+
+
+.slider
+	display: flex
+	align-items: center
+	height: 300px
+	overflow: hidden
+	margin: 0 1%
+
+	@include breakpoint(min-width)
+		display: none
+
+.slider-wrapper
+	padding-block: 1rem
+	display: flex
+	flex-wrap: nowrap
+
+.slider_img
+	width: 138.3px
+	height: 270px
+	border-radius: 5px
+
+
+.slider[data-animated="true"]
+	.slider-wrapper 
+		width: max-content
+		gap: 1rem
+		animation: scroll var(--_animation-duration, 40s) var(--_animation-direction, forwards) linear infinite
+		
+
+.slider[data-direction="right"]
+	--_animation-direction: reverse
+
+
+.slider[data-speed="slow"]
+	--_animation-duration: 60s
+
+
+@keyframes scroll
+	to
+		transform: translate(calc(-50% - 0.5rem))

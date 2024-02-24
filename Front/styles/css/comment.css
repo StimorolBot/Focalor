@@ -1,0 +1,44 @@
+.comment__container {
+  border: 2px solid red;
+  height: 80%;
+}
+
+.img-user__container {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+}
+.img-user__container .fa-user {
+  cursor: pointer;
+  scale: 2;
+}
+
+.comment__form-container {
+  border: 2px solid hotpink;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment__form {
+  width: 80%;
+  height: 75%;
+  border: 2px solid green;
+}
+
+.comment_lbl {
+  border: 2px solid black;
+}
+
+.comment-content {
+  border: 2px solid darkblue;
+  border-radius: 10px;
+}
+
+.comment-btn {
+  border: 2px solid red;
+}
+
+/*# sourceMappingURL=comment.css.map */

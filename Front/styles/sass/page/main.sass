@@ -1,0 +1,29 @@
+@import "../size.sass"
+@import "main_blocks/header.sass"
+@import "main_blocks/slider.sass"
+@import "main_blocks/cards.sass"
+@import "main_blocks/focalor.sass"
+@import "main_blocks/footer.sass"
+@import "main_blocks/auth/login_form.sass"
+@import "main_blocks/auth/register_form.sass"
+@import "main_blocks/auth/reset_password.sass"
+@import "main_blocks/auth/input.sass"
+
+body.lock
+	overflow: hidden
+	transition: 0.3s
+	width: 100%
+
+.wrapper
+	display: flex
+	margin: 0 1%
+	overflow: hidden
+	flex-wrap: wrap
+
+	@include breakpoint(min-width)
+		flex-wrap: nowrap
+
+.popup_wrapper-form
+	position: relative
+	height: 98%
+	width: 100%
