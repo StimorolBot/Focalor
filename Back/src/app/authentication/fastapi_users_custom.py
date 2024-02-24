@@ -6,7 +6,7 @@ from src.app.authentication.login import get_login_user
 from src.app.authentication.logout import get_logout_user
 from src.app.authentication.register import get_register_user
 from src.app.authentication.reset_passord import get_reset_password_router
-
+from src.app.comment.comment import get_comment_router
 
 from fastapi_users import models, schemas
 from fastapi_users.authentication import AuthenticationBackend, Authenticator
@@ -15,7 +15,7 @@ from fastapi_users.manager import UserManagerDependency
 from fastapi_users.router import (
     get_auth_router,
     get_register_router,
-    #get_reset_password_router,
+    # get_reset_password_router,
     get_users_router,
     get_verify_router,
 )
@@ -54,6 +54,10 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
 
     def get_register_user(self, user_schema: Type[schemas.U], user_create_schema: Type[schemas.UC]) -> APIRouter:
         return get_register_user(self.get_user_manager, user_schema, user_create_schema)
+
+    @staticmethod
+    def get_comment_user() -> APIRouter:
+        return get_comment_router()
 
     def get_verify_router(self, user_schema: Type[schemas.U]) -> APIRouter:
         """
