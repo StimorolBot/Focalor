@@ -38,3 +38,15 @@ def render_email_reset_password(email: EmailMessage, email_subject: str, token: 
         subtype="html"
     )
     return email
+
+
+def render_on_after_reset_password(email: EmailMessage, email_subject: str)-> EmailMessage:
+    email["Subject"] = email_subject
+
+    email.set_content(
+        "<div>"
+        "<h2>Вы сменили пароль</h2>"
+        "</div>",
+        subtype="html"
+    )
+    return email

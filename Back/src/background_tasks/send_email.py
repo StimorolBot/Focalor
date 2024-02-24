@@ -3,9 +3,8 @@ import smtplib
 from email.message import EmailMessage
 from src.app.authentication.operations.states import UserStates
 from src.config import celery, SMTP_HOST, SMTP_PORT, SMTP_EMAIL, SMTP_TOKEN
-from src.background_tasks.email_templates import (render_email_on_after_register,
-                                                  render_email_confirm,
-                                                  render_email_reset_password)
+from src.background_tasks.email_templates import (render_email_on_after_register, render_email_confirm,
+                                                  render_on_after_reset_password, render_email_reset_password)
 
 
 @celery.task
@@ -21,6 +20,8 @@ def send_email(state: UserStates, **kwargs):
             render_email_confirm(email=email, token=kwargs["token"], email_subject="Подтверждение почты")
         case "reset_password":
             render_email_reset_password(email=email, email_subject="Сброс пароля", token=kwargs["token"])
+        case "on_after_reset_password":
+            render_on_after_reset_password(email=email, email_subject="Сброс пароля")
         case _:
             raise "[!] неизвестное состояние"
 
