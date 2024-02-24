@@ -11,7 +11,7 @@ from src.app.comment.schemas import Comment as CommentSchemas
 from src.app.authentication.user_manager import current_user
 
 
-def get_register_user() -> APIRouter:
+def get_comment_router() -> APIRouter:
     router = APIRouter()
 
     comment_responses: OpenAPIResponseType = {
@@ -43,7 +43,7 @@ def get_register_user() -> APIRouter:
     }
 
     @router.post("/comment", responses=comment_responses)
-    async def register(request: Request, user=Depends(current_user), session: AsyncSession = Depends(get_async_session)):
+    async def create_comment(request: Request, user=Depends(current_user), session: AsyncSession = Depends(get_async_session)):
         data = await request.json()
         comment = data["comment"]
 
