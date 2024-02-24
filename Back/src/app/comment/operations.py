@@ -1,41 +1,25 @@
-import uuid
-
-from sqlalchemy import delete, select
+from .models import Comment
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi import Depends, status, HTTPException
 
-from src.database import get_async_session
-from src.app.authentication.models.user import User
-
-from src.app.authentication.schemas.admmin import PaginationResponse
-from fastapi_pagination import Page, paginate
-
-
-class AdminOperations:
+class CommentOperations:
     @staticmethod
-    async def check_admin(user: User):
-        try:
-            if user.is_superuser:
-                return True
-        except AttributeError:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail={"status_code": status.HTTP_404_NOT_FOUND,
-                                        "data": "страница не найдена", }, )
+    async def create_comment(session: AsyncSession, comment_dict: dict) -> int:
+        stmt = Comment(**comment_dict)
+        session.add(stmt)
+        await session.flush()
+        await session.commit()
+        return stmt.comment_id
 
     @staticmethod
-    async def pagination(session: AsyncSession) -> Page[PaginationResponse]:
-        query = select(User)
-        query_execute = await session.execute(query)
-        users = query_execute.all()
-        user_list = [i[0].__dict__ for i in users]
-        paginate_list, total, page, size, pages = paginate(user_list)
-        pages = [i for i in range(1, pages[1] + 1)]
-
-        return [paginate_list, total, page, size, pages]
-
-    @staticmethod
-    async def remove_user(user_id: uuid.UUID, session: AsyncSession = Depends(get_async_session)):
-        stmt = delete(User).where(User.id == user_id)
+    async def delete_comment(session: AsyncSession, comment_id: int) -> str:
+        stmt = delete(Comment).where(Comment.comment_id == comment_id)
         await session.execute(stmt)
         await session.commit()
+
+        return f"[!] Комментарий {comment_id} успешно удален"
+
+    @staticmethod
+    async def redact_comment(session: AsyncSession, comment_id):
+        ...
