@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from sqlalchemy import String
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTableUUID
@@ -11,6 +11,7 @@ from src.app.authentication.schemas.user_auth import UserRead
 if TYPE_CHECKING:
     from .news_letter import NewsLetter
     from .role import Role
+    from src.app.comment.models import Comment
 
 
 class User(SQLAlchemyBaseUserTableUUID, Base):
@@ -27,6 +28,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     # relationship не отображаются в бд
     user_subscription: Mapped["NewsLetter"] = relationship("NewsLetter", back_populates="user", uselist=False)
     user_role: Mapped["Role"] = relationship("Role", back_populates="user")
+    comment: Mapped[List["Comment"]] = relationship(back_populates="user_comment")
 
     async def to_read_model(self) -> UserRead:
         return UserRead(
