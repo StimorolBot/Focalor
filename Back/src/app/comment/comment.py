@@ -1,25 +1,20 @@
-from typing import Type, Annotated
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from fastapi_users import models, schemas
 from fastapi_users.router.common import ErrorCode, ErrorModel
-from fastapi_users.manager import BaseUserManager, UserManagerDependency
 
-from fastapi.exceptions import HTTPException
 from fastapi import APIRouter, Depends, Request, status
 from fastapi_users.openapi import OpenAPIResponseType
 
-from src.base.response import Response as ResponseSchemas
-from src.help_func.generate_token import get_token
-from src.app.authentication.operations.states import UserStates
-from src.background_tasks.send_email import send_email
-from src.app.authentication.operations.user_operation import user
+from src.database import get_async_session
+from src.app.comment.operations import CommentOperations
+from src.app.comment.schemas import Comment as CommentSchemas
+from src.app.authentication.user_manager import current_user
 
 
-def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.ID], user_schema: Type[schemas.U],
-                      user_create_schema: Type[schemas.UC], ) -> APIRouter:
+def get_register_user() -> APIRouter:
     router = APIRouter()
 
-    register_responses: OpenAPIResponseType = {
+    comment_responses: OpenAPIResponseType = {
         status.HTTP_400_BAD_REQUEST: {
             "model": ErrorModel,
             "content": {
@@ -47,29 +42,12 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
         },
     }
 
-    @router.post("/register", name="register:register", responses=register_responses)
-    async def register(request: Request, user_create: Annotated[user_create_schema, Depends()],  # type: ignore
-                       user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager), ) -> ResponseSchemas:
-        await user_manager.validate_password(user_create.password, user_create)
-        existing_user = await user_manager.user_db.get_by_email(user_create.email)
+    @router.post("/comment", responses=comment_responses)
+    async def register(request: Request, user=Depends(current_user), session: AsyncSession = Depends(get_async_session)):
+        data = await request.json()
+        comment = data["comment"]
 
-        if existing_user is not None:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail={"code": ErrorCode.REGISTER_USER_ALREADY_EXISTS,
-                        "data": "Пользователь с таким именем/почтой уже существует"})
-
-        token = get_token(states=UserStates.EMAIL_CONFIRM, request=request)
-        send_email(state=UserStates.EMAIL_CONFIRM, token=token["url"])
-
-        user.ttl = token["ttl"]
-        user.token = token["token"]
-        user.user_email = user_create.email
-        user.user_manager = user_manager
-        user.user_create = user_create
-        user.user_schema = user_schema
-        user.request = request
-
-        return ResponseSchemas(status_code=status.HTTP_200_OK, detail="Для завершения регистрации проверьте свой почтовый ящик")
+        comment_dict = CommentSchemas(user_id=user.id, comment=comment).model_dump()
+        await CommentOperations.create_comment(session=session, comment_dict=comment_dict)
 
     return router

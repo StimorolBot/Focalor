@@ -1,11 +1,9 @@
-from datetime import datetime
+from uuid import UUID
 from pydantic import BaseModel, ConfigDict
 
 
 class Comment(BaseModel):
-    post_id: int
-    comment_date: datetime
-    username: str
-    content: str
+    user_id: UUID
+    comment: str
 
     model_config = ConfigDict(from_attributes=True)
