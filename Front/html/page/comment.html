@@ -3,6 +3,7 @@
 <section class="comment__container">
 </section>
 
+{% block body %}
 <section class="comment__form-container">
     <div class="user-info__container">
         <i class="fa-solid fa-user" aria-hidden="true"></i>
@@ -15,3 +16,8 @@
         <button class="comment-btn" type="submit">Оставить комментарий</button>
     </form>
 </section>
+{% endblock %}
+
+{% block script %}
+<script src="../js/comment/send_comment.js"></script>
+{% endblock %}
