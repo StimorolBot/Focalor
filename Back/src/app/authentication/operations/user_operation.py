@@ -9,21 +9,22 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import async_session_maker
 from src.app.authentication.models.user import User
 from src.app.authentication.models.news_letter import NewsLetter
-from src.app.authentication.shemas.user_operations import Operations
+from src.app.authentication.schemas.user_operations import Operations
 
 
 class UserOperations(Operations):
     def __init__(self):
         super().__init__()
 
-    async def verified_token(self):
-        if self.token_request is None or self.token is None:
+    async def verified_token(self, token_request: str):
+        if token_request is None or self.token is None:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail={"code": "INVALID_TOKEN",
                         "data": "Токен невалиден"})
 
-        elif (self.token_request == self.token) and await self.ttl_check() is True:
+        elif (token_request == self.token) and await self.ttl_check() is True:
+            self.token = None
             return True
 
     async def create_user(self):

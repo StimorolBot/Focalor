@@ -1,1 +1,17 @@
 {% extends 'base.html' %}
+
+<section class="comment__container">
+</section>
+
+<section class="comment__form-container">
+    <div class="user-info__container">
+        <i class="fa-solid fa-user" aria-hidden="true"></i>
+        <span class="comment-username">username</span>
+    </div>
+
+    <form class="comment__form" action="/comment" method="post">
+        <textarea class="comment-content" name="comment-content" id="comment" required="" maxlength="256"
+                  placeholder="Введите комментарий"></textarea>
+        <button class="comment-btn" type="submit">Оставить комментарий</button>
+    </form>
+</section>

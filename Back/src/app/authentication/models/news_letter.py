@@ -1,14 +1,14 @@
 from uuid import UUID
-from .base import Base
 from typing import TYPE_CHECKING
 
 from sqlalchemy import TIMESTAMP, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from src.base.custom_type import intpk
+from src.base.declarative_base import Base
+
 if TYPE_CHECKING:
     from .user import User
-
-from .custom_type import intpk
 
 
 class NewsLetter(Base):

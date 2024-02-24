@@ -15,11 +15,11 @@ from src.router.router_user import router_user
 
 from src.app.authentication.user_manager import get_user_manager
 from src.app.authentication.cookie import auth_backend
-from src.app.authentication.shemas.user_auth import UserRead, UserCreate
+from src.app.authentication.schemas.user_auth import UserRead, UserCreate
 from src.app.authentication.models.user import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 
-app = FastAPI(title="main_app")
+app = FastAPI(title="auth_app")
 
 # добавление пагинации страниц
 add_pagination(app)

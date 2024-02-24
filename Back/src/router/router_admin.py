@@ -10,7 +10,7 @@ from src.config import templates
 from src.database import get_async_session
 from src.app.authentication.models.user import User
 from src.app.authentication.user_manager import current_user
-from src.app.authentication.shemas.admmin import PaginationResponse
+from src.app.authentication.schemas.admmin import PaginationResponse
 from src.app.authentication.operations.admin_operations import AdminOperations
 
 router_admin = APIRouter(tags=["admin"])

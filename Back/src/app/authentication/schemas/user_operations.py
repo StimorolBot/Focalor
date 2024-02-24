@@ -12,7 +12,6 @@ class Operations(BaseModel):
     user_email: Optional[EmailStr] = None
     ttl: Optional[datetime] = None
     token: Optional[str] = None
-    token_request: Optional[str] = None
     user_manager: Optional[Type[BaseUserManager]] = None
     user_create: Optional[Type[schemas.UC]] = None
     user_schema: Optional[Type[schemas.UC]] = None

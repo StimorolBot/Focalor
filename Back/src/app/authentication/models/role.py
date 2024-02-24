@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base
-from .custom_type import intpk
+from src.base.custom_type import intpk
+from src.base.declarative_base import Base
 
 if TYPE_CHECKING:
     from .user import User

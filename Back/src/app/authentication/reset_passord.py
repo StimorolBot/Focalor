@@ -5,8 +5,8 @@ from fastapi_users.manager import BaseUserManager, UserManagerDependency
 from fastapi_users.openapi import OpenAPIResponseType
 from fastapi_users.router.common import ErrorCode, ErrorModel
 
-from src.app.authentication.schemas import UserResetPassword
-from src.app.background_tasks.send_email import send_email
+from src.app.authentication.schemas.user_auth import UserResetPassword
+from src.background_tasks.send_email import send_email
 
 RESET_PASSWORD_RESPONSES: OpenAPIResponseType = {
     status.HTTP_400_BAD_REQUEST: {
