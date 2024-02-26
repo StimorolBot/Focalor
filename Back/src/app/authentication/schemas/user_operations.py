@@ -1,11 +1,10 @@
 from fastapi import Request
-from datetime import datetime
-
-from pydantic import BaseModel, EmailStr
-from typing import Optional, Type
 from fastapi_users import schemas
-
 from fastapi_users.manager import BaseUserManager
+
+from datetime import datetime
+from typing import Optional, Type
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class Operations(BaseModel):
@@ -17,5 +16,4 @@ class Operations(BaseModel):
     user_schema: Optional[Type[schemas.UC]] = None
     request: Optional[Type[Request]] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

@@ -1,6 +1,6 @@
 from uuid import UUID
 from datetime import datetime
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class PaginationResponse(BaseModel):
@@ -10,5 +10,4 @@ class PaginationResponse(BaseModel):
     email: EmailStr
     time: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

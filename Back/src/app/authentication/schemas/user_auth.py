@@ -1,16 +1,15 @@
 import uuid
 from typing import Optional
+from datetime import datetime
+from typing_extensions import Annotated
 
 from fastapi_users import schemas
 from fastapi import HTTPException, status
 from fastapi.param_functions import Form
 from fastapi_users.router.common import ErrorCode
 
-from pydantic import EmailStr, BaseModel
+from pydantic import EmailStr, BaseModel, ConfigDict
 from pydantic.functional_validators import model_validator
-
-from datetime import datetime
-from typing_extensions import Annotated
 
 
 # будет отображаться при успешном создании пользователя
@@ -23,8 +22,7 @@ class UserRead(schemas.BaseUser[uuid.UUID]):
     is_superuser: bool = False
     is_verified: bool = False
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # чтобы не было ошибки добавил в BaseUserCreate username
@@ -43,8 +41,7 @@ class UserCreate(schemas.BaseUserCreate):
             is_superuser=is_superuser,
             is_verified=is_verified)
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
     @model_validator(mode='after')
     def check_password(self):
@@ -74,5 +71,4 @@ class UserResetPassword(BaseModel):
     password: Annotated[str, Form(min_length=8, max_length=20)]
     password_repeat: Annotated[str, Form(min_length=8, max_length=20)]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
