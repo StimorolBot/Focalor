@@ -72,7 +72,10 @@ app.add_middleware(
 
 
 @app.exception_handler(HTTPException)
-async def exception_handler(request: Request, exc: HTTPException):
+async def exception_handler(request: Request, exc: HTTPException) -> templates.TemplateResponse:
+    if isinstance(exc.detail, str):
+        exc.detail = {"data": exc.detail}
+
     return templates.TemplateResponse("error.html", {
         "request": request,
         "status_code": exc.status_code,
