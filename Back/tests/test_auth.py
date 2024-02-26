@@ -1,41 +1,17 @@
-from conftest import client
 from fastapi import status
+from httpx import AsyncClient
+from tests.conftest import ac
 
 
-# pytest -v tests/ - запуск тестов
+# pytest -v -s tests/ - запуск тестов
 
-def test_register():
-    response = client.post("/register", json={
-        "email": "test@test.com",
-        "username": "username",
-        "password": "password"
-    })
-    assert response.status_code == status.HTTP_200_OK, "[!] Не удалось зарегистрировать пользователя"
+class TestAuth:
 
+    async def test_register(self, ac: AsyncClient):
+        user_date = {"email": "maxim@test.reg", "username": "maxim_test", "password": "passwordtest"}
+        response = await ac.post("/register", data=user_date)
 
-def test_login_email():
-    response = client.post("/login", json={
-        "username": "test@test.com",
-        "password": "password"
-    })
-
-    print(response)
-
-
-def test_login_username():
-    response = client.post("/login", json={
-        "username": "username",
-        "password": "password"
-    })
-
-
-def test_reset_password():
-    ...
-
-
-def test_subscribe_newsletter():
-    ...
-
-
-def test_logout():
-    ...
+        assert response.json() == {
+            "status_code": status.HTTP_200_OK,
+            "detail": "Для завершения регистрации проверьте свой почтовый ящик"
+        }
