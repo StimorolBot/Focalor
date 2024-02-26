@@ -8,6 +8,7 @@ from fastapi.exceptions import HTTPException
 from fastapi import APIRouter, Depends, Request, status
 from fastapi_users.openapi import OpenAPIResponseType
 
+from src.base.response import Response as ResponseSchemas
 from src.help_func.generate_token import get_token
 from src.app.authentication.operations.states import UserStates
 from src.background_tasks.send_email import send_email
@@ -48,7 +49,7 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
 
     @router.post("/register", name="register:register", responses=register_response)
     async def register(request: Request, user_create: Annotated[user_create_schema, Depends()],  # type: ignore
-                       user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager), ):
+                       user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager), ) -> ResponseSchemas:
         await user_manager.validate_password(user_create.password, user_create)
 
         existing_user = await user_manager.user_db.get_by_email(user_create.email)
@@ -70,46 +71,6 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
         user.user_schema = user_schema
         user.request = request
 
-        return {
-            "status_code": status.HTTP_200_OK,
-            "data": "Для завершения регистрации проверьте свой почтовый ящик"
-        }
+        return ResponseSchemas(status_code=status.HTTP_200_OK, detail="Для завершения регистрации проверьте свой почтовый ящик")
 
     return router
-
-
-
-
-"""
-@router.post("/register", name="register:register",
-                 responses={
-                     status.HTTP_400_BAD_REQUEST: {
-                         "model": ErrorModel,
-                         "content": {
-                             "application/json": {
-                                 "examples": {
-                                     ErrorCode.REGISTER_USER_ALREADY_EXISTS: {
-                                         "summary": "A user with this email already exists.",
-                                         "value": {
-                                             "detail": ErrorCode.REGISTER_USER_ALREADY_EXISTS
-                                         },
-                                     },
-                                     ErrorCode.REGISTER_INVALID_PASSWORD: {
-                                         "summary": "Password validation failed.",
-                                         "value": {
-                                             "detail": {
-                                                 "code": ErrorCode.REGISTER_INVALID_PASSWORD,
-                                                 "reason": "Password should be"
-                                                           "at least 3 characters",
-                                             }
-                                         },
-                                     },
-                                 }
-                             }
-                         },
-                     },
-                 },
-                 )
-
-
-"""
