@@ -1,9 +1,8 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class SettingTest(BaseSettings):
-    MODE : str
-
+    MODE: str
     DB_TEST_HOST: str
     DB_TEST_PORT: int
     DB_TEST_NAME: str
@@ -15,8 +14,9 @@ class SettingTest(BaseSettings):
         return (f"postgresql+asyncpg://{self.DB_TEST_USER}:{self.DB_TEST_PASS}@{self.DB_TEST_HOST}:"
                 f"{self.DB_TEST_PORT}/{self.DB_TEST_NAME}")
 
-    class Config:
-        env_file = ".test.env"
+    # .test.env хранится на одном уровне с .env 
+    model_config = SettingsConfigDict(env_file=".test.env")
+
 
 
 setting_test = SettingTest()
