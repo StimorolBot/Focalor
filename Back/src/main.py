@@ -1,5 +1,6 @@
 import aioredis
 from fastapi import FastAPI, Request
+from contextlib import asynccontextmanager
 
 from fastapi_cache import FastAPICache
 from fastapi.staticfiles import StaticFiles
@@ -19,7 +20,15 @@ from src.app.authentication.schemas.user_auth import UserRead, UserCreate
 from src.app.authentication.models.user import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 
-app = FastAPI(title="auth_app")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
+    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+    yield
+
+
+app = FastAPI(title="auth_app", lifespan=lifespan)
 
 # добавление пагинации страниц
 add_pagination(app)
@@ -70,9 +79,3 @@ async def exception_handler(request: Request, exc: HTTPException):
         "title": f"Error {exc.status_code}",
         "error_details": exc.detail["data"]
     })
-
-
-@app.on_event("startup")
-async def startup_event():
-    redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
-    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
