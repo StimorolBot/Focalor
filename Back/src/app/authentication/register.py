@@ -71,6 +71,6 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
         user.user_schema = user_schema
         user.request = request
 
-        return ResponseSchemas(status_code=status.HTTP_200_OK, detail="Для завершения регистрации проверьте свой почтовый ящик")
+        return ResponseSchemas(status_code=status.HTTP_200_OK, data="Для завершения регистрации проверьте свой почтовый ящик")
 
     return router
