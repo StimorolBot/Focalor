@@ -20,6 +20,8 @@ from src.app.authentication.schemas.user_auth import UserRead, UserCreate
 from src.app.authentication.models.user import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 
+from core.logger.logger import logger
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -76,12 +78,13 @@ async def check_server_error(request: Request, call_next):
     try:
         response = await call_next(request)
         return response
-    except OSError:
+    except (OSError, TypeError, AttributeError) as error:
+        logger.error(error)
         return templates.TemplateResponse("error.html", {
             "request": request,
             "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
             "title": status.HTTP_500_INTERNAL_SERVER_ERROR,
-            "error_details": "Недопустимые символы в параметре пути"
+            "error_details": "Внутренняя ошибка сервера"
         })
 
 
