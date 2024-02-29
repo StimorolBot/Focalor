@@ -3,7 +3,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.config import DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT
+from core.config import setting
 from alembic import context
 
 # this is the Alembic Config object, which provides
@@ -11,11 +11,11 @@ from alembic import context
 config = context.config
 
 section = config.config_ini_section
-config.set_section_option(section, "DB_HOST", DB_HOST)
-config.set_section_option(section, "DB_NAME", DB_NAME)
-config.set_section_option(section, "DB_USER", DB_USER)
-config.set_section_option(section, "DB_PASS", DB_PASS)
-config.set_section_option(section, "DB_PORT", DB_PORT)
+config.set_section_option(section, "DB_HOST", setting.DB_HOST)
+config.set_section_option(section, "DB_NAME", setting.DB_NAME)
+config.set_section_option(section, "DB_USER", setting.DB_USER)
+config.set_section_option(section, "DB_PASS", setting.DB_PASS)
+config.set_section_option(section, "DB_PORT", setting.DB_PORT)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -28,7 +28,7 @@ if config.config_file_name is not None:
 
 # если таблицы в разных файлах, то их все нужно импортировать (хз через раз получается,
 # сейчас создалось все при подключении User, в прошлый раз так не работало, мб это из за того, что User основная таблица)
-from src.base.declarative_base import Base
+from core.models.declarative_base import Base
 from src.app.authentication.models.user import User
 from src.app.authentication.models.role import Role
 from src.app.authentication.models.news_letter import NewsLetter
