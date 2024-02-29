@@ -1,5 +1,5 @@
 import aioredis
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status
 from contextlib import asynccontextmanager
 
 from fastapi_cache import FastAPICache
@@ -69,6 +69,20 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],  # разрешенные методы
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Authorization"],
 )
+
+
+@app.middleware("http")
+async def check_server_error(request: Request, call_next):
+    try:
+        response = await call_next(request)
+        return response
+    except OSError:
+        return templates.TemplateResponse("error.html", {
+            "request": request,
+            "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "title": status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "error_details": "Недопустимые символы в параметре пути"
+        })
 
 
 @app.exception_handler(HTTPException)
