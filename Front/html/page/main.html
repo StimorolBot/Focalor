@@ -262,7 +262,7 @@
 
                 <div class="popup__form-container">
                     <input class="popup__input" name="password" type="password"
-                           minlength="8" maxlength="20" autocomplete="off" required pattern="[0-9]|[a-z]|[A-Z]">
+                           minlength="8" maxlength="20" autocomplete="off" required pattern="[^0-9a-zA-Z_]">
                     <label class="popup__lbl">Пароль</label>
 
                     <div class="popup__show-password">
@@ -317,13 +317,13 @@
 
                 <div class="popup__form-container">
                     <input class="popup__input" name="username" type="text"
-                           required autocomplete="off" minlength="8" maxlength="40" pattern="[0-9]|[a-z]|[A-Z]">
+                           required autocomplete="off" minlength="8" maxlength="40" pattern="[^0-9a-zA-Z_]">
                     <label class="popup__lbl">Имя пользователя</label>
                 </div>
 
                 <div class="popup__form-container">
                     <input class="popup__input" name="password" type="password"
-                           required autocomplete="off" minlength="8" maxlength="20" pattern="[0-9]|[a-z]|[A-Z]">
+                           required autocomplete="off" minlength="8" maxlength="20" pattern="[^0-9a-zA-Z_]">
                     <label class="popup__lbl">Пароль</label>
                     <button class="popup__show-password">
                         <i class="fa-solid fa-eye"></i>
@@ -332,7 +332,7 @@
 
                 <div class="popup__form-container">
                     <input class="popup__input" name="password" type="password"
-                           required autocomplete="off" minlength="8" maxlength="20" pattern="[0-9]|[a-z]|[A-Z]">
+                           required autocomplete="off" minlength="8" maxlength="20" pattern="[^0-9a-zA-Z_]">
                     <label class="popup__lbl">Повторите пароль</label>
                     <button class="popup__show-password">
                         <i class="fa-solid fa-eye"></i>
@@ -382,7 +382,7 @@
                 <h2 class="popup__title">Сброс пароля</h2>
             </header>
 
-            <form class="popup__form popup__form-reset-password" method="POST" action="/reset-password" enctype="multipart/form-data">
+            <form class="popup__form popup__form-reset-password" action="/reset-password" enctype="multipart/form-data">
 
                 <div class="popup__form-step popup__form-step_active">
                     <div class="popup__form-container">
@@ -392,24 +392,24 @@
                     </div>
 
                     <div class="popup__form-container">
-                        <input class="popup__input" name="code" type="text"
+                        <input class="popup__input" name="token" type="text" id="popup__input-token"
                                required autocomplete="off" maxlength="6">
                         <label class="popup__lbl">Код подтверждения</label>
                         <button class="popup__btn-send">Отправить</button>
                     </div>
                 </div>
 
-                <div class="popup__form-step">
+               <div class="popup__form-step">
                     <div class="popup__form-container">
                         <input class="popup__input" name="password" type="password"
-                           required autocomplete="off" minlength="8" maxlength="20" pattern="[0-9]|[a-z]|[A-Z]">
+                           required autocomplete="off" minlength="8" maxlength="20" pattern="[^0-9a-zA-Z_]">
                         <label class="popup__lbl">Пароль</label>
                         <button class="popup__show-password"> <i class="fa-solid fa-eye"></i> </button>
                     </div>
 
                     <div class="popup__form-container">
                         <input class="popup__input" name="password" type="password"
-                           required autocomplete="off" minlength="8" maxlength="20" pattern="[0-9]|[a-z]|[A-Z]">
+                           required autocomplete="off" minlength="8" maxlength="20" pattern="[^0-9a-zA-Z_]">
                         <label class="popup__lbl">Повторите пароль</label>
                         <button class="popup__show-password"> <i class="fa-solid fa-eye"></i> </button>
                     </div>
@@ -419,6 +419,7 @@
                     <li class="indicator__steps-reset-pwd indicator__steps-reset-pdw_active"></li>
                     <li class="indicator__steps-reset-pwd"></li>
                 </ul>
+                <button class="popup__btn-next-step">TEST</button>
             </form>
             <button class="popup__btn-next-step"></button>
         </div>
@@ -435,6 +436,5 @@
 <script src="../js/auth/show_form.js"></script>
 <script src="../js/main/switch_theme.js"></script>
 <script src="../js/main/focalors_bg_slider.js"></script>
-<script src="../js/no_reload.js"></script>
-<script src="../js/reset_form.js"></script>
+<script src="../js/ajax.js"></script>
 {% endblock %}
