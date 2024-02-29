@@ -1,4 +1,3 @@
-import aioredis
 from fastapi import FastAPI, Request, status
 from contextlib import asynccontextmanager
 
@@ -10,7 +9,6 @@ from fastapi_cache.backends.redis import RedisBackend
 
 from starlette.exceptions import HTTPException
 
-from src.config import templates
 from src.router.router_admin import router_admin
 from src.router.router_user import router_user
 
@@ -20,12 +18,12 @@ from src.app.authentication.schemas.user_auth import UserRead, UserCreate
 from src.app.authentication.models.user import User
 from src.app.authentication.fastapi_users_custom import FastAPIUsers
 
+from core.config import templates, redis
 from core.logger.logger import logger
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
     yield
 
