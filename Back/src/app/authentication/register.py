@@ -1,4 +1,5 @@
-from typing import Type, Annotated
+import json
+from typing import Type
 
 from fastapi_users import models, schemas
 from fastapi_users.router.common import ErrorCode, ErrorModel
@@ -8,11 +9,10 @@ from fastapi.exceptions import HTTPException
 from fastapi import APIRouter, Depends, Request, status
 from fastapi_users.openapi import OpenAPIResponseType
 
-from src.base.response import Response as ResponseSchemas
+from core.config import redis
+from core.schemas.response import Response as ResponseSchemas
 from src.help_func.generate_token import get_token
 from src.app.authentication.operations.states import UserStates
-from src.background_tasks.send_email import send_email
-from src.app.authentication.operations.user_operation import user
 
 
 def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.ID], user_schema: Type[schemas.U],
@@ -48,29 +48,27 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
     }
 
     @router.post("/register", name="register:register", responses=register_response)
-    async def register(request: Request, user_create: Annotated[user_create_schema, Depends()],  # type: ignore
+    async def register(request: Request, user_create: user_schema = Depends(user_create_schema),  # type: ignore
                        user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager), ) -> ResponseSchemas:
         await user_manager.validate_password(user_create.password, user_create)
-
         existing_user = await user_manager.user_db.get_by_email(user_create.email)
 
         if existing_user is not None:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail={"code": ErrorCode.REGISTER_USER_ALREADY_EXISTS,
-                        "data": "Пользователь с таким именем/почтой уже существует"})
+            detail = ResponseSchemas(status_code=status.HTTP_400_BAD_REQUEST, data="Пользователь с таким почтой уже существует")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
 
-        token = get_token(states=UserStates.EMAIL_CONFIRM, request=request)
-        send_email(state=UserStates.EMAIL_CONFIRM, token=token["token"])
+        token, url = get_token(states=UserStates.EMAIL_CONFIRM, request=request)
 
-        user.ttl = token["ttl"]
-        user.token = token["token"].split("/")[2]
-        user.user_email = user_create.email
-        user.user_manager = user_manager
-        user.user_create = user_create
-        user.user_schema = user_schema
-        user.request = request
+        user_dict = {
+            "email": user_create.email,
+            "username": user_create.username,
+            "password": user_create.password
+        }
 
+        user_str = json.dumps(user_dict)
+        await redis.set(name=token, value=user_str, ex=120)
+
+        await user_manager.send_email_confirm(user_create.email, request, url)
         return ResponseSchemas(status_code=status.HTTP_200_OK, data="Для завершения регистрации проверьте свой почтовый ящик")
 
     return router
