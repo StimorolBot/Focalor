@@ -17,7 +17,6 @@ class Settings(BaseSettings):
     SMTP_EMAIL: str
 
     DB_USER_TOKEN: str
-    LIFETIME: int
     JWT_TOKEN: str
 
     @property
