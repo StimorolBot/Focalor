@@ -7,6 +7,7 @@ from src.app.authentication.logout import get_logout_user
 from src.app.authentication.register import get_register_user
 from src.app.authentication.reset_passord import get_reset_password_router
 from src.app.comment.comment import get_comment_router
+from src.app.authentication.verified import get_verify_router_cust
 
 from fastapi_users import models, schemas
 from fastapi_users.authentication import AuthenticationBackend, Authenticator
@@ -59,6 +60,9 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
     def get_comment_user() -> APIRouter:
         return get_comment_router()
 
+    def get_verify_router_custom(self, user_schema: Type[schemas.UC]) -> APIRouter:
+        return get_verify_router_cust(self.get_user_manager, user_schema)
+
     def get_verify_router(self, user_schema: Type[schemas.U]) -> APIRouter:
         """
         Return a router with e-mail verification routes.
@@ -67,9 +71,10 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
         """
         return get_verify_router(self.get_user_manager, user_schema)
 
-    def get_reset_password_router(self) -> APIRouter:
+    @staticmethod
+    def get_reset_password_router() -> APIRouter:
         """Return a reset password process router."""
-        return get_reset_password_router(self.get_user_manager)
+        return get_reset_password_router()
 
     def get_login_router(self, backend: AuthenticationBackend, requires_verification: bool = False) -> APIRouter:
         return get_login_user(backend, self.get_user_manager, requires_verification, )
