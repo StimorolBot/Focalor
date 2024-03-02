@@ -7,12 +7,21 @@
 ---
 </div>  
 
+## Запуск:
+- <code>uvicorn main:app --reload</code> запуск сервера через терминал
+- <code>celery -A src.background_tasks.send_email:celery worker --loglevel=INFO --pool=solo</code> запуск celery (перезагружать после изменения кода)
+- <code>celery -A core.config:celery flower</code> запуск веб интерфейса
+- <code>http://127.0.0.1:8000/docs</code> документация fastapi
+- <code>http://localhost:5555</code> интерфейс графический celery
+---
+
 ## Структура проекта:
 
 ### Backend
 
 ```
 Back/
+    ├── core/                       #
     ├── migrations/                 #
     ├── src/                        #
         ├── app/                    #
