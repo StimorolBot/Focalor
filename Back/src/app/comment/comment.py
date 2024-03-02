@@ -5,13 +5,13 @@ from fastapi_users.router.common import ErrorCode, ErrorModel
 from fastapi import APIRouter, Depends, Request, status
 from fastapi_users.openapi import OpenAPIResponseType
 
-from src.database import get_async_session
+from core.database import get_async_session
 from src.app.comment.operations import CommentOperations
 from src.app.comment.schemas import Comment as CommentSchemas
 from src.app.authentication.user_manager import current_user
 
 
-def get_comment_router() -> APIRouter:
+def get_comment_user() -> APIRouter:
     router = APIRouter()
 
     comment_responses: OpenAPIResponseType = {
