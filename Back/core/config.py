@@ -18,6 +18,7 @@ class Settings(BaseSettings):
 
     DB_USER_TOKEN: str
     JWT_TOKEN: str
+    EX: int
 
     @property
     def DATABASE_URL(self) -> str:
