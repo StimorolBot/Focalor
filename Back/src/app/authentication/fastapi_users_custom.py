@@ -7,12 +7,11 @@ from fastapi_users.router import get_users_router
 from fastapi_users.manager import UserManagerDependency
 from fastapi_users.authentication import AuthenticationBackend, Authenticator
 
-from src.app.comment.comment import get_comment_user
-from src.app.authentication.login import get_login_user
-from src.app.authentication.logout import get_logout_user
-from src.app.authentication.verified import get_verify_user
-from src.app.authentication.register import get_register_user
-from src.app.authentication.reset_passord import get_reset_password_user
+from src.app.authentication.router.auth.api_v1.login import get_login_user
+from src.app.authentication.router.auth.api_v1.logout import get_logout_user
+from src.app.authentication.router.auth.api_v1.verified import get_verify_user
+from src.app.authentication.router.auth.api_v1.register import get_register_user
+from src.app.authentication.router.auth.api_v1.reset_passord import get_reset_password_user
 
 try:
     from httpx_oauth.oauth2 import BaseOAuth2
@@ -48,10 +47,6 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
     @staticmethod
     def get_reset_password_router() -> APIRouter:
         return get_reset_password_user()
-
-    @staticmethod
-    def get_comment_router() -> APIRouter:
-        return get_comment_user()
 
     def get_oauth_router(self, oauth_client: BaseOAuth2, backend: AuthenticationBackend,
                          state_secret: SecretType, redirect_url: Optional[str] = None,
