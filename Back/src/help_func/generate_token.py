@@ -2,7 +2,7 @@ import string
 import secrets
 from typing import Optional
 from fastapi import Request
-from src.app.authentication.operations.states import UserStates
+from core.enum.email_states import EmailStates
 
 
 def render_token(token_len: int = 64) -> str:
@@ -11,7 +11,7 @@ def render_token(token_len: int = 64) -> str:
     return token
 
 
-def get_token(states: UserStates, request: Optional[Request] = None) -> list | str:
+def get_token(states: EmailStates, request: Optional[Request] = None) -> list | str:
     match states.value:
         case "email_confirm":
             token = render_token()
