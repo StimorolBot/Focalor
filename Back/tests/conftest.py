@@ -10,9 +10,9 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
 from tests.setting import setting_test
 
-from src.main import app
-from src.base.declarative_base import Base
-from src.database import get_async_session
+from main import app
+from core.models.declarative_base import Base
+from core.database import get_async_session
 
 engine_test = create_async_engine(setting_test.DB_TEST_URL, poolclass=NullPool)
 async_session_maker = sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
