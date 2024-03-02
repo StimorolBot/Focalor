@@ -1,0 +1,97 @@
+.admin__container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.admin__panel {
+  position: relative;
+  min-width: 240px;
+  height: 100%;
+  background-color: #0f2d74;
+  overflow: hidden;
+}
+
+.admin__nav-bg-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  height: 40%;
+}
+
+.admin__nav-bg {
+  opacity: 0.7;
+  height: 100%;
+}
+
+.admin__nav {
+  top: 50%;
+  left: 1%;
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  transform: translate(0%, -50%);
+}
+
+.admin__nav-link {
+  color: #fff;
+  display: flex;
+  width: 100%;
+  padding: 3% 0;
+  text-indent: 15px;
+  transition: 0.2s;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+.admin__nav-link:hover {
+  transition: 0.2s;
+  background: #a4bbdb;
+}
+
+.admin__table {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin__table-container {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.admin__table-row,
+.admin__table-column {
+  padding: 5px;
+  text-align: center;
+  border-right: 2px solid #ABCDEF;
+  width: 20px;
+}
+
+.admin__table-column {
+  border-bottom: 2px solid #ABCDEF;
+  background-color: #003153;
+}
+
+.admin__table-row {
+  background-color: #49678D;
+}
+
+.admin__table-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  display: flex;
+  color: #C5D0E6;
+  font-size: 16px;
+  grid-gap: 20px;
+}
+
+.admin__table-btn {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #003153;
+  border-radius: 5px;
+}
+
+/*# sourceMappingURL=admin.css.map */
