@@ -5,8 +5,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi import Depends, status, HTTPException
 
-from src.config import templates
-from src.database import get_async_session
+from core.config import templates
+from core.database import get_async_session
 from src.app.authentication.models.user import User
 
 
