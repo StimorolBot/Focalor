@@ -14,9 +14,7 @@ class SettingTest(BaseSettings):
         return (f"postgresql+asyncpg://{self.DB_TEST_USER}:{self.DB_TEST_PASS}@{self.DB_TEST_HOST}:"
                 f"{self.DB_TEST_PORT}/{self.DB_TEST_NAME}")
 
-    # .test.env хранится на одном уровне с .env 
-    model_config = SettingsConfigDict(env_file=".test.env")
-
+    model_config = SettingsConfigDict(env_file="tests/.test.env")
 
 
 setting_test = SettingTest()
