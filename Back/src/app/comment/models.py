@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.base.declarative_base import Base
+from core.models.declarative_base import Base
 from src.base.custom_type import intpk, time
 
 if TYPE_CHECKING:
