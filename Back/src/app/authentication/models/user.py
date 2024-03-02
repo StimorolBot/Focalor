@@ -5,7 +5,7 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTableUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models.declarative_base import Base
-from src.base.custom_type import time, email
+from core.models.custom_type import time, email
 from src.app.authentication.schemas.user_auth import UserRead
 
 if TYPE_CHECKING:
