@@ -38,16 +38,16 @@ def get_verify_user(user_create_schema: UserCreate) -> APIRouter:
     }
 
     @router.get("/verified/{token}", name="verify:verify", responses=verify_responses)
-    async def verify(request: Request, token: str, user_manager: UserManager = Depends(get_user_manager), ):
+    async def verify(request: Request, token: str, user_manager: UserManager = Depends(get_user_manager), ) -> ResponseSchemas:
         user_str = await redis.get(token)
 
         if user_str is None:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="verify_responses")
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Токен невалиден")
 
         user_dict = json.loads(user_str)
         user_create = user_create_schema(**user_dict)
         await user_manager.create(user_create=user_create)
 
-        return ResponseSchemas(status_code=status.HTTP_201_CREATED, data="verify_responses")
+        return ResponseSchemas(status_code=status.HTTP_201_CREATED, data=f"Пользователь {user_dict['username']} создан")
 
     return router
