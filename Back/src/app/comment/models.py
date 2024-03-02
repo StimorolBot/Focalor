@@ -5,7 +5,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models.declarative_base import Base
-from src.base.custom_type import intpk, time
+from core.models.custom_type import intpk, time
 
 if TYPE_CHECKING:
     from src.app.authentication.models.user import User
