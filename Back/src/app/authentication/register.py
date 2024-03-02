@@ -1,22 +1,22 @@
 import json
 from typing import Type
 
-from fastapi_users import models, schemas
-from fastapi_users.router.common import ErrorCode, ErrorModel
-from fastapi_users.manager import BaseUserManager, UserManagerDependency
-
 from fastapi.exceptions import HTTPException
 from fastapi import APIRouter, Depends, Request, status
+
+from fastapi_users import schemas
 from fastapi_users.openapi import OpenAPIResponseType
+from fastapi_users.router.common import ErrorCode, ErrorModel
 
 from core.config import redis
 from core.schemas.response import Response as ResponseSchemas
+
 from src.help_func.generate_token import get_token
-from src.app.authentication.operations.states import UserStates
+from core.enum.email_states import EmailStates
+from src.app.authentication.user_manager import get_user_manager, UserManager
 
 
-def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.ID], user_schema: Type[schemas.U],
-                      user_create_schema: Type[schemas.UC], ) -> APIRouter:
+def get_register_user(user_schema: Type[schemas.U], user_create_schema: Type[schemas.UC], ) -> APIRouter:
     router = APIRouter()
 
     register_response: OpenAPIResponseType = {
@@ -26,18 +26,17 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
                 "application/json": {
                     "examples": {
                         ErrorCode.REGISTER_USER_ALREADY_EXISTS: {
-                            "summary": "A user with this email already exists.",
+                            "summary": "Пользователь с таким адресом электронной почты уже существует",
                             "value": {
                                 "detail": ErrorCode.REGISTER_USER_ALREADY_EXISTS
                             },
                         },
                         ErrorCode.REGISTER_INVALID_PASSWORD: {
-                            "summary": "Password validation failed.",
+                            "summary": "Проверка пароля не удалась.",
                             "value": {
                                 "detail": {
                                     "code": ErrorCode.REGISTER_INVALID_PASSWORD,
-                                    "reason": "Password should be"
-                                              "at least 3 characters",
+                                    "reason": "Пароль должен состоять минимум из 8 символов",
                                 }
                             },
                         },
@@ -48,8 +47,8 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
     }
 
     @router.post("/register", name="register:register", responses=register_response)
-    async def register(request: Request, user_create: user_schema = Depends(user_create_schema),  # type: ignore
-                       user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager), ) -> ResponseSchemas:
+    async def register(request: Request, user_create: user_schema = Depends(user_create_schema),
+                       user_manager: UserManager = Depends(get_user_manager), ) -> ResponseSchemas:
         await user_manager.validate_password(user_create.password, user_create)
         existing_user = await user_manager.user_db.get_by_email(user_create.email)
 
@@ -57,14 +56,13 @@ def get_register_user(get_user_manager: UserManagerDependency[models.UP, models.
             detail = ResponseSchemas(status_code=status.HTTP_400_BAD_REQUEST, data="Пользователь с таким почтой уже существует")
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
 
-        token, url = get_token(states=UserStates.EMAIL_CONFIRM, request=request)
+        token, url = get_token(states=EmailStates.EMAIL_CONFIRM, request=request)
 
         user_dict = {
             "email": user_create.email,
             "username": user_create.username,
             "password": user_create.password
         }
-
         user_str = json.dumps(user_dict)
         await redis.set(name=token, value=user_str, ex=120)
 
