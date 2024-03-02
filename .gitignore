@@ -15,3 +15,4 @@ README
 .pytest_cache
 img
 audio
+user.log
