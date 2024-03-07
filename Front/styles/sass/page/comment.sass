@@ -1,46 +1,125 @@
-.comment__container 
-  border: 2px solid red
+@keyframes line-show
+  0%
+    opacity: 0.5
+    width: 0
+  100%
+    opacity: 1
+    width: 50%
+
+.comment__container
   height: 80%
+  overflow-y: auto
+  overflow-x: hidden
 
-.user-info__container 
-  display: flex
-  justify-content: center
-  align-items: center
-
-  .fa-user
-    cursor: pointer
-    scale: 2
+.wrapper
+  margin: 1%
 
 .comment__form-container
-  border: 2px solid hotpink
   display: flex
   width: 100%
   height: 20%
   justify-content: center
   align-items: center
 
+.user-info__container
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+  width: 15%
+  height: 75%
+  position: relative
+  overflow: hidden
+
+  .fa-user
+    cursor: pointer
+    scale: 2
+
+.comment-username
+  position: absolute
+  bottom: 0
+
 .comment__form
   width: 80%
   height: 75%
-  border: 2px solid green
   position: relative
-
-.comment_lbl
-  border: 2px solid black
-
+  overflow: hidden
 
 .comment-content
   width: 100%
   background-color: transparent
   font-size: 1.3em
   padding: 0 10px
+  color: #fff
+  position: absolute
+  bottom: 30%
+  height: 20px
 
-.comment-content::-webkit-scrollbar
-  width: 0px
-
-.comment-btn
-  border: 2px solid red
+.comment-content::-webkit-input-placeholder
   position: absolute
   bottom: 0
-  right: 0
+
+.comment__form-indicator
+  position: absolute
+  width: 100%
+  bottom: 25%
+  height: 4px
+  box-shadow: inset 0 -3px 1px rgba(255, 186, 0, 0.5)
+
+  &:before
+    content: ""
+    position: absolute
+    bottom: 0
+    left: 50%
+    border-bottom: 3px solid #FFBA00
+
+  &:after
+    content: ""
+    position: absolute
+    bottom: 0
+    right: 50%
+    border-bottom: 3px solid #FFBA00
+
+
+.comment-content:is(:focus, :valid) ~ .comment__form-indicator
+  &:before,
+  &:after
+    animation: line-show 0.8s
+    opacity: 1
+    width: 50%
+
+
+.comment-content::-webkit-scrollbar
+  width: 0
+
+.comment-content::-webkit-input-placeholder
+  color: #fff
+
+.comment-btn
+  position: absolute
+  bottom: 30%
+  right: 2%
   border-radius: 10px
+  color: #d7d4d4
+
+  .fa-solid
+    scale: 1.4
+    transition: 0.2s
+
+    &:hover
+      color: #fff
+      transition: 0.2s
+
+    &:active
+      transform: translateY(2px)
+      transition: 0.2s
+
+.comment__user
+  background-color: #1560BD
+  border-radius: 10px
+  padding: 5px
+  margin: 1% 0
+  word-break: break-all
+  display: inline-block
+  vertical-align: middle
+  max-width: 250px
