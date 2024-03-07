@@ -1,10 +1,11 @@
 import uuid
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from pydantic import EmailStr
 
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, UUIDIDMixin, FastAPIUsers, models
 
+from src.background_tasks.send_email import send_email
 from src.app.authentication.cookie import auth_backend
 from src.app.authentication.models.user import User
 from src.app.authentication.models.role import Role
@@ -15,8 +16,12 @@ from src.app.authentication.operations.user_operation import user as user_operat
 from core.config import setting
 from core.logger.logger import logger
 from core.database import get_user_db
+from core.models.logger import LoggerResponse
 from core.enum.email_states import EmailStates
-from src.background_tasks.send_email import send_email
+from core.enum.logger_states import LoggerStates, LoggerDetail
+
+if TYPE_CHECKING:
+    from src.app.authentication.schemas.user_auth import UserResetPassword
 
 
 class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
@@ -43,19 +48,30 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     @staticmethod
     async def send_email_confirm(user_email: EmailStr, request: Request, token: str):
         send_email(state=EmailStates.EMAIL_CONFIRM, token=token)
-        logger.info(f"Запрос на подтверждение почты: {user_email}")
+        log_msg = LoggerResponse(state=LoggerStates.REQUEST.value, detail=LoggerDetail.MAIL_CONFIRMATION.value, user_data=user_email)
+        logger.info(msg=log_msg.msg)
 
     @staticmethod
     async def on_after_register(user: User):
         send_email(state=EmailStates.ON_AFTER_REGISTER, username=user.username)
-        logger.info(f"Пользователь создан: {user.email}")
+        log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.MAIL_CONFIRM.value, user_data=user.email)
+        logger.info(msg=log_msg.msg)
 
     @staticmethod
     async def on_after_login(user: User):
-        logger.info(f"Пользователь вошел: {user.email}")
+        log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.LOGIN.value, user_data=user.email)
+        logger.info(msg=log_msg.msg)
 
-    async def on_after_reset_password(self, user: models.UP, request: Optional[Request] = None):
-        logger.info(f"Пользователь сменил пароль: {user.email}")
+    @staticmethod
+    async def on_after_logout(user: User):
+        log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.LOGOUT.value, user_data=user.email)
+        logger.info(msg=log_msg.msg)
+
+    @staticmethod
+    async def on_after_reset_password(user: "UserResetPassword"):
+        send_email(state=EmailStates.ON_AFTER_RESET_PASSWORD, username=user.username)
+        log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.RESET_PASSWORD.value, user_data=user.email)
+        logger.info(msg=log_msg.msg)
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):
