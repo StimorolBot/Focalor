@@ -4,24 +4,32 @@
 <link rel="stylesheet" href="../styles/css/comment.css">
 {% endblock %}
 
+{% block body %}
 <section class="comment__container">
+    <div class="wrapper">
+        {% for comment in comment_list %}
+            <div class="comment__user">{{ comment['comment'] }}</div>
+            <br>
+        {% endfor %}
+    </div>
 </section>
 
-{% block body %}
 <section class="comment__form-container">
     <div class="user-info__container">
         <i class="fa-solid fa-user" aria-hidden="true"></i>
-        <span class="comment-username">username</span>
+        <span class="comment-username"> {{ username }}</span>
     </div>
 
-    <form class="comment__form" action="/comment" method="post">
-        <textarea class="comment-content" name="comment-content" id="comment" required="" maxlength="256"
-                  placeholder="Введите комментарий"></textarea>
-        <button class="comment-btn" type="submit">Оставить комментарий</button>
+    <form class="comment__form" action="/comment" method="POST">
+        <textarea class="comment-content" name="comment-content" id="comment" required maxlength="256"
+                  placeholder="Введите комментарий" autocomplete="off"></textarea>
+        <div class="comment__form-indicator"></div>
+        <button class="comment-btn" type="submit"><i class="fa-solid fa-arrow-right-long"></i></button>
     </form>
 </section>
 {% endblock %}
 
 {% block script %}
 <script src="../js/comment/send_comment.js"></script>
+<script src="../js/comment/comment.js"></script>
 {% endblock %}
