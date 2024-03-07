@@ -22,8 +22,10 @@ def send_email(state: EmailStates, **kwargs):
             email_templates.render_email_reset_password(email=email, email_subject="Сброс пароля", token=kwargs["token"])
         case "on_after_reset_password":
             email_templates.render_on_after_reset_password(email=email, email_subject="Сброс пароля")
+        case "on_after_reset_password":
+            email_templates.render_on_after_reset_password(email=email, email_subject="Сброс пароля")
         case _:
-            raise "[!] неизвестное состояние"
+            raise ValueError("[!] неизвестное состояние")
 
     with smtplib.SMTP_SSL(setting.SMTP_HOST, setting.SMTP_PORT) as server:
         server.login(user=setting.SMTP_EMAIL, password=setting.SMTP_TOKEN)
