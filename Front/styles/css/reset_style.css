@@ -48,9 +48,14 @@ input[type="tel"]{
 input:focus,
 button:focus {
   outline: none;
-  border: none;
 }
 
 a{
   text-decoration: none
+}
+
+textarea{
+  outline: none;
+  resize: none;
+  border: none;
 }
