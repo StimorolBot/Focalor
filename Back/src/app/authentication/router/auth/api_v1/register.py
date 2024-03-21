@@ -1,4 +1,3 @@
-import json
 from typing import Type
 
 from fastapi.exceptions import HTTPException
@@ -8,12 +7,10 @@ from fastapi_users import schemas
 from fastapi_users.openapi import OpenAPIResponseType
 from fastapi_users.router.common import ErrorCode, ErrorModel
 
-from core.config import redis
-from core.config import setting
 from core.enum.email_states import EmailStates
+from core.operation.convert import add_to_redis
+from core.operation.generate_token import get_token
 from core.schemas.response import Response as ResponseSchemas
-
-from src.help_func.generate_token import get_token
 from src.app.authentication.user_manager import get_user_manager, UserManager
 
 
@@ -58,6 +55,7 @@ def get_register_user(user_create_schema: Type[schemas.UC], ) -> APIRouter:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
 
         token, url = get_token(states=EmailStates.EMAIL_CONFIRM, request=request)
+        # перед отправкой в редис хэшировать пароли
 
         user_dict = {
             "email": user_create.email,
@@ -66,9 +64,7 @@ def get_register_user(user_create_schema: Type[schemas.UC], ) -> APIRouter:
             "password_confirm": user_create.password_confirm
         }
 
-        user_str = json.dumps(user_dict)
-        await redis.set(name=token, value=user_str, ex=setting.EX)
-
+        await add_to_redis(user_data=user_dict, name=token)
         await user_manager.send_email_confirm(user_create.email, request, url)
         return ResponseSchemas(status_code=status.HTTP_200_OK, data="Для завершения регистрации проверьте свой почтовый ящик")
 
