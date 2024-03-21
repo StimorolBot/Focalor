@@ -8,7 +8,7 @@ from sqlalchemy.pool import NullPool
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
-from tests.comfig import setting_test
+from tests.config import setting_test
 
 from main import app
 from core.models.declarative_base import Base
