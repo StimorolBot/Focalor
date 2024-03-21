@@ -7,10 +7,8 @@ from tests.conftest import ac
 class TestAuth:
 
     async def test_register(self, ac: AsyncClient):
-        user_date = {"password": "passwordtest", "password_confirm": "passwordtest", "email": "email@my.com", "username": "myNameTest"}
-        response = await ac.post("/register", data=user_date)
+        user_date = {"email": "email@my.com", "username": "myNameTest", "password": "passwordtest", "password_confirm": "passwordtest"}
+        response = await ac.post("/register", params=user_date)
+        assert response.json() == {'status_code': 200, 'data': 'Для завершения регистрации проверьте свой почтовый ящик'}
 
-        assert response.json() == {
-            "status_code": 200,
-            "data": "Для завершения регистрации проверьте свой почтовый ящик"
-        }
+
