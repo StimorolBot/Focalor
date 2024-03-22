@@ -29,9 +29,3 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     user_subscription: Mapped["NewsLetter"] = relationship("NewsLetter", back_populates="user", uselist=False)
     user_role: Mapped["Role"] = relationship("Role", back_populates="user")
     comment: Mapped[List["Comment"]] = relationship(back_populates="user_comment")
-
-    async def to_read_model(self) -> UserRead:
-        return UserRead(
-            id=self.id, email=self.email, username=self.username, time=self.time,
-            is_active=self.is_active, is_superuser=self.is_superuser, is_verified=self.is_verified,
-        )
