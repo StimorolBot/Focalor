@@ -7,11 +7,11 @@ from fastapi_users.router import get_users_router
 from fastapi_users.manager import UserManagerDependency
 from fastapi_users.authentication import AuthenticationBackend, Authenticator
 
-from src.app.authentication.router.auth.api_v1.login import get_login_user
-from src.app.authentication.router.auth.api_v1.logout import get_logout_user
-from src.app.authentication.router.auth.api_v1.verified import get_verify_user
-from src.app.authentication.router.auth.api_v1.register import get_register_user
-from src.app.authentication.router.auth.api_v1.reset_passord import get_reset_password_user
+from src.app.authentication.router.api_v1.login import get_login_user
+from src.app.authentication.router.api_v1.logout import get_logout_user
+from src.app.authentication.router.api_v1.verified import get_verify_user
+from src.app.authentication.router.api_v1.register import get_register_user
+from src.app.authentication.router.api_v1.reset_passord import get_reset_password_user
 
 try:
     from httpx_oauth.oauth2 import BaseOAuth2
@@ -41,8 +41,8 @@ class FastAPIUsers(Generic[models.UP, models.ID]):
         return get_logout_user(backend, self.authenticator, requires_verification, )
 
     @staticmethod
-    def get_verify_router(user_create_schema: Type[schemas.UC]) -> APIRouter:
-        return get_verify_user(user_create_schema)
+    def get_verify_router() -> APIRouter:
+        return get_verify_user()
 
     @staticmethod
     def get_reset_password_router() -> APIRouter:
