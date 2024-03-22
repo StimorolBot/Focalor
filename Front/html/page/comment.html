@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<script src="../../js/comment/comment.js"></script>{% extends 'base.html' %}
 
 {% block style %}
 <link rel="stylesheet" href="../styles/css/comment.css">
@@ -8,8 +8,17 @@
 <section class="comment__container">
     <div class="wrapper">
         {% for comment in comment_list %}
-            <div class="comment__user">{{ comment['comment'] }}</div>
-            <br>
+            {% if comment['user_id'] == uuid %}
+                <div class="wrapper-msg">
+                    <div class="comment comment__user">{{ comment['comment'] }}</div>
+                </div>
+                <br>
+            {% else %}
+                <div class="wrapper-msg">
+                    <div class="comment comment__all">{{ comment['comment'] }}</div>
+                </div>
+                <br>
+            {% endif %}
         {% endfor %}
     </div>
 </section>
@@ -25,11 +34,13 @@
                   placeholder="Введите комментарий" autocomplete="off"></textarea>
         <div class="comment__form-indicator"></div>
         <button class="comment-btn" type="submit"><i class="fa-solid fa-arrow-right-long"></i></button>
+        <input type="file"><i class="fa-solid fa-file-circle-plus"></i>
+
     </form>
 </section>
 {% endblock %}
 
 {% block script %}
-<script src="../js/comment/send_comment.js"></script>
 <script src="../js/comment/comment.js"></script>
+<script src="../js/comment/send_comment.js"></script>
 {% endblock %}
