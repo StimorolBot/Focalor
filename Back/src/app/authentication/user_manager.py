@@ -1,5 +1,5 @@
 import uuid
-from typing import Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from pydantic import EmailStr
 
 from fastapi import Depends, Request
@@ -9,7 +9,6 @@ from src.background_tasks.send_email import send_email
 from src.app.authentication.cookie import auth_backend
 from src.app.authentication.models.user import User
 from src.app.authentication.models.role import Role
-from src.app.authentication.schemas.user_auth import UserCreate
 from src.app.authentication.models.news_letter import NewsLetter
 from src.app.authentication.operations.user_operation import user as user_operation
 
@@ -21,6 +20,8 @@ from core.enum.email_states import EmailStates
 from core.enum.logger_states import LoggerStates, LoggerDetail
 
 if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncSession
+    from src.app.authentication.schemas.user_auth import UserCreate
     from src.app.authentication.schemas.user_auth import UserResetPassword
 
 
@@ -28,7 +29,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     reset_password_token_secret = setting.DB_USER_TOKEN
     verification_token_secret = setting.DB_USER_TOKEN
 
-    async def create(self, user_create: UserCreate, safe: bool = False, request: Optional[Request] = None, ) -> models.UP:
+    async def create(self, user_create: "UserCreate", session: "AsyncSession", safe: bool = False) -> models.UP:
         user_dict = (
             user_create.create_update_dict()
             if safe
@@ -41,7 +42,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         user_dict["is_verified"] = True
 
         created_user = await self.user_db.create(user_dict)
-        await user_operation.add_role_and_newsletter(email=user_dict["email"], tables=[Role, NewsLetter])
+        await user_operation.add_role_and_newsletter(email=user_dict["email"], tables=[Role, NewsLetter], session=session)
         await self.on_after_register(created_user)
         return created_user
 
