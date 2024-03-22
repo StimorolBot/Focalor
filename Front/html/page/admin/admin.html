@@ -30,6 +30,7 @@
                 <td class="admin__table-column">Имя</td>
                 <td class="admin__table-column">Дата регистрации</td>
                 <td class="admin__table-column">Почта</td>
+                <td class="admin__table-column">Роль</td>
                 <td class="admin__table-column">Удалить</td>
             </tr>
             {% for user in users %}
@@ -38,13 +39,14 @@
                 <td class="admin__table-column">{{ user.username }}</td>
                 <td class="admin__table-column">{{ user.time }}</td>
                 <td class="admin__table-column">{{ user.email }}</td>
+                <td class="admin__table-column">{{ user.role }}</td>
                 <td class="admin__table-column"><i class="fa-solid fa-xmark"></i></td>
             </tr>
             {% endfor %}
         </table>
 
         <div class="admin__table-btn-container">
-            {% for btn in btns %}
+            {% for btn in range(1, btns+1) %}
             <button class="admin__table-btn"> {{ btn }}</button>
             {% endfor %}
         </div>
