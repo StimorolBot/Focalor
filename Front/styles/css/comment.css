@@ -16,6 +16,7 @@
 
 .wrapper {
   margin: 1%;
+  position: relative;
 }
 
 .comment__form-container {
@@ -61,6 +62,7 @@
   color: #fff;
   position: absolute;
   bottom: 30%;
+  height: 20px;
 }
 
 .comment-content::-webkit-input-placeholder {
@@ -124,11 +126,23 @@
   transition: 0.2s;
 }
 
+.wrapper-msg:has(.comment__all) {
+  float: left;
+}
+
+.wrapper-msg:has(.comment__user) {
+  position: relative;
+  border: 2px solid;
+}
+.wrapper-msg:has(.comment__user) .comment__user {
+  position: absolute;
+  right: 0;
+}
+
 .comment__user {
   background-color: #1560BD;
   border-radius: 10px;
   padding: 5px;
-  margin: 1% 0;
   word-break: break-all;
   display: inline-block;
   vertical-align: middle;
