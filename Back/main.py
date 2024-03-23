@@ -13,9 +13,13 @@ from starlette.exceptions import HTTPException
 
 from core.logger.logger import logger
 from core.config import templates, redis
+from core.models.logger import LoggerResponse
+from core.enum.logger_states import LoggerStates, LoggerDetail
 
-from src.app.authentication.router.users.api_v1 import router
-from src.app.authentication.router.auth.api_v1 import router_auth
+from src.router.api_v1 import router_home
+from src.app.comment.router.api_v1 import rooter_comment
+from src.app.authentication.router.api_v1 import router_auth
+from src.app.admin_panel.router.api_v1 import router_admin
 
 
 @asynccontextmanager
@@ -30,8 +34,10 @@ app = FastAPI(title="auth_app", lifespan=lifespan)
 add_pagination(app)
 
 # подключение роутеров
-app.include_router(router)
+app.include_router(router_home)
 app.include_router(router_auth)
+app.include_router(router_admin)
+app.include_router(rooter_comment)
 
 # подключать в самом конце, иначе выдает ошибку "Метод не разрешен"
 app.mount("/", StaticFiles(directory="../Front/"), name="css", )  # подключение css, js и img
@@ -54,20 +60,21 @@ app.add_middleware(
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Authorization"],
 )
 
-
-@app.middleware("http")
+'''@app.middleware("http")
 async def check_server_error(request: Request, call_next):
     try:
         response = await call_next(request)
         return response
     except (OSError, TypeError, AttributeError) as error:
-        logger.error(error)
+        log_msg = LoggerResponse(state=LoggerStates.ERROR.value, detail=LoggerDetail.SERVER_ERROR.value, user_data=error)
+        logger.error(msg=log_msg.msg)
         return templates.TemplateResponse("error.html", {
             "request": request,
             "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
             "title": status.HTTP_500_INTERNAL_SERVER_ERROR,
             "error_details": "Внутренняя ошибка сервера"
         })
+'''
 
 
 @app.exception_handler(HTTPException)
@@ -89,6 +96,5 @@ async def main():
     await server.serve()
 
 
-# нежно перезагружать после изменения кода, поэтому лучше запускать через терминал
 if __name__ == '__main__':
     asyncio.run(main())
