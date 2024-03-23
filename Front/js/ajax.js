@@ -19,13 +19,15 @@ $(document).ready(function(){
   $(".popup__btn-send").on("click", function(event){
     event.preventDefault();
     var user_email = $("#email_reset_password").val();
-    var btn = $(this);
+    check = $(check_field(user_email));
+    
+    if ( check[0] === true){
+      var btn = $(this);
+      btn.attr('disabled', true);
 
-    btn.attr('disabled', true);
-
-    setTimeout(function() {
-      btn.attr('disabled', false);
-    }, 60000);
+      setTimeout(function() {
+        btn.attr('disabled', false);
+      }, 1000);
 
     $.ajax({
       url: "/reset-password/code-confirm",
@@ -45,11 +47,20 @@ $(document).ready(function(){
           console.log("error", data);
         }
       });
+    }
   });
 
 
   $(".popup__btn-next-step").on("click", function(event){
     event.preventDefault();
+    var user_email = $("#email_reset_password").val();
+    var user_token = $("#popup__input-token").val();
+    var step = $("popup__form-step")
+
+    if ((user_email.length >0 ) && (user_token.length > 0)){
+
+    }
+
     var data =  $(this).serialize();
 
     $.ajax({
@@ -71,4 +82,16 @@ $(document).ready(function(){
         }
       });
   });
-});	
+});
+
+
+function check_field(field){
+  var email_address= ["gmail.com","mail.ru","yandex.com"]
+
+  if (field.length < 8){
+    return false;
+  }
+  else{
+    return true;
+  }  
+}
