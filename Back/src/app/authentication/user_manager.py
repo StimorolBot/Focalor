@@ -53,19 +53,24 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         logger.info(msg=log_msg.msg)
 
     @staticmethod
-    async def on_after_register(user: User):
+    async def on_after_register(user: "User"):
         send_email(state=EmailStates.ON_AFTER_REGISTER, username=user.username)
         log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.MAIL_CONFIRM.value, user_data=user.email)
         logger.info(msg=log_msg.msg)
 
     @staticmethod
-    async def on_after_login(user: User):
+    async def on_after_login(user: "User"):
         log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.LOGIN.value, user_data=user.email)
         logger.info(msg=log_msg.msg)
 
     @staticmethod
-    async def on_after_logout(user: User):
+    async def on_after_logout(user: "User"):
         log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.LOGOUT.value, user_data=user.email)
+        logger.info(msg=log_msg.msg)
+
+    @staticmethod
+    async def on_after_subscribe(email: "EmailStr"):
+        log_msg = LoggerResponse(state=LoggerStates.OK.value, detail=LoggerDetail.SUBSCRIBE_ON_NEWSLETTER.value, user_data=email)
         logger.info(msg=log_msg.msg)
 
     @staticmethod
