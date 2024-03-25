@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
   $(".footer__subscription_form").on("submit", function(event){
-		event.preventDefault();
-		var data =  $(this).serialize();
+    event.preventDefault();
+    let data = $(this).serialize();
 
-		$.ajax({
+    $.ajax({
       url: $(this).attr("action"),
       type: $(this).attr("method"),
       dataType: "json",
@@ -14,7 +14,7 @@ $(document).ready(function(){
         email: data.split("=")[1]
       }),
     });
-	});
+  });
 
   $(".popup__btn-send").on("click", function(event){
     event.preventDefault();
@@ -50,7 +50,6 @@ $(document).ready(function(){
     }
   });
 
-
   $(".popup__btn-next-step").on("click", function(event){
     event.preventDefault();
     var user_email = $("#email_reset_password").val();
@@ -73,14 +72,14 @@ $(document).ready(function(){
         data: data
       }),
             
-        success: function(result){
-          console.log("success", result);
+      success: function(result){
+        console.log("success", result);
         },
             
-        error: function(data){
-          console.log("error", data);
-        }
-      });
+      error: function(data){
+        console.log("error", data);
+      }
+    });
   });
 });
 
